@@ -11,6 +11,4 @@ Rails.application.routes.draw do
     end
   end
 
-  # get '/app/src/index', to: 'questions#index'
-  # root to app/src/index
 end
