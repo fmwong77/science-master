@@ -1,5 +1,27 @@
 body {
-	box-sizing: border-box;
-	font-size: 10px;
+	/* box-sizing: border-box; */
 	background: #ffc600;
+}
+
+.my-container {
+	margin: auto;
+}
+
+#beakerIcon {
+	margin: 25px;
+	height: 100px;
+	width: 100px;
+}
+
+#planetIcon {
+	margin: 25px;
+	height: 100px;
+	width: 100px;
+}
+#navigationRow {
+	height: 200px;
+}
+
+#gameTitle {
+	font-size: 35px;
 }

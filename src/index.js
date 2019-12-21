@@ -48,6 +48,7 @@ uniqCat.forEach(category => {
       const button = document.createElement('div');
       button.innerText = category
       button.id = category
+      button.classList.add("card");
       button.addEventListener("click", displayQuestions)
       categoryContainer.appendChild(button)
       
