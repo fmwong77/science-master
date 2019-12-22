@@ -37,47 +37,57 @@ window.addEventListener('DOMContentLoaded', () => {
     categories.forEach(question => {
       categoryArr.push(question.category)
     })
-
+     //Iterate through two arrays to get image and name card data
     let uniqCat = removeDup(categoryArr);
-
-    
-    // }
-
-    //Sort through each category and create buttons with IDs
-    uniqCat.forEach(category => {
-      console.log(category)
-      const categoryContainer = document.getElementById('category-container')
+    const imgCat = ["chromosome", "isaac-newton", "power"]
+    const categoryContainer = document.getElementById('category-container')
+    var i;
+    for (i = 0; i < uniqCat.length; i++) {
       const button = document.createElement('div');
-      button.innerText = category
-      button.id = category
+      button.classList.add("card");
       button.innerHTML = `
-      <img class="card-img-top category-card" src="./images/human.svg" alt="Card image cap">
-      <div class="card-body">
-        <p class="card-text">${category}</p>
+      <div class="card text-center" style="width: 12rem;">
+      <img class="card-img-top img-card" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
+      <div class="card-body category-card">
+        <h4 class="card-title">${uniqCat[i]}</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
       </div>
       `
-      console.log(uniqCat)
-      // button.style = "width: 18rem;"
-      button.classList.add("card");
-      button.addEventListener("click", displayQuestions)
-      if(button.id === "Body Works: Inside & Out") {
-        category.innerHTML= `<img class="card-img-top" src="./images/human.svg" alt="Card image cap">
-        <div class="card-body">
-          <p class="card-text">${category}</p>
-        </div>`
-      }
       categoryContainer.appendChild(button);
-      // displayCategoryCards(uniqCat);
+    }
+    
 
-    });
-  }
-      
-    //   if(category.id === "Body Works: Inside & Out") {
+    //Sort through each category and create buttons with IDs
+    // uniqCat.forEach(category => {
+    //   console.log(category)
+    //   const categoryContainer = document.getElementById('category-container')
+    //   const button = document.createElement('div');
+    //   button.innerText = category
+    //   button.id = category
+    //   button.innerHTML = `
+    //   <img class="card-img-top category-card" src="./images/human.svg" alt="Card image cap">
+    //   <div class="card-body">
+    //     <p class="card-text">${category}</p>
+    //   </div>
+    //   `
+    //   console.log(uniqCat)
+    //   // button.style = "width: 18rem;"
+    //   button.classList.add("card");
+    //   button.addEventListener("click", displayQuestions)
+    //   if(button.id === "Body Works: Inside & Out") {
     //     category.innerHTML= `<img class="card-img-top" src="./images/human.svg" alt="Card image cap">
     //     <div class="card-body">
     //       <p class="card-text">${category}</p>
     //     </div>`
-    // }
+    //   }
+    //   categoryContainer.appendChild(button);
+    //   // displayCategoryCards(uniqCat);
+
+    // });
+  }
+      
+ 
   function displayQuestions() {
     console.log(questions)
     questions.forEach(question => {

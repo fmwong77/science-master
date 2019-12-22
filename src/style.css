@@ -9,14 +9,14 @@ body {
 
 #beakerIcon {
 	margin: 25px;
-	height: 100px;
-	width: 100px;
+	height: 125px;
+	width: 125px;
 }
 
 #planetIcon {
 	margin: 25px;
-	height: 100px;
-	width: 100px;
+	height: 125px;
+	width: 125px;
 }
 #navigationRow {
 	height: 200px;
@@ -26,6 +26,15 @@ body {
 	font-size: 35px;
 }
 
-.category-card {
-	width: 18rem;
+/* .category-card {
+	padding-top: 20px;
+	width: 12rem;
+	border-style: solid;
+	border-color: black;
+} */
+
+.img-card {
+	/* border-style: solid;
+	border-color: black; */
+	/* background-color: #ffc600; */
 }
