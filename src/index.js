@@ -38,23 +38,46 @@ window.addEventListener('DOMContentLoaded', () => {
       categoryArr.push(question.category)
     })
 
-    let uniqCat = removeDup(categoryArr)
-console.log(uniqCat);
+    let uniqCat = removeDup(categoryArr);
 
+    
+    // }
 
-uniqCat.forEach(category => {
+    //Sort through each category and create buttons with IDs
+    uniqCat.forEach(category => {
       console.log(category)
       const categoryContainer = document.getElementById('category-container')
       const button = document.createElement('div');
       button.innerText = category
       button.id = category
+      button.innerHTML = `
+      <img class="card-img-top category-card" src="./images/human.svg" alt="Card image cap">
+      <div class="card-body">
+        <p class="card-text">${category}</p>
+      </div>
+      `
+      console.log(uniqCat)
+      // button.style = "width: 18rem;"
       button.classList.add("card");
       button.addEventListener("click", displayQuestions)
-      categoryContainer.appendChild(button)
-      
+      if(button.id === "Body Works: Inside & Out") {
+        category.innerHTML= `<img class="card-img-top" src="./images/human.svg" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">${category}</p>
+        </div>`
+      }
+      categoryContainer.appendChild(button);
+      // displayCategoryCards(uniqCat);
 
     });
   }
+      
+    //   if(category.id === "Body Works: Inside & Out") {
+    //     category.innerHTML= `<img class="card-img-top" src="./images/human.svg" alt="Card image cap">
+    //     <div class="card-body">
+    //       <p class="card-text">${category}</p>
+    //     </div>`
+    // }
   function displayQuestions() {
     console.log(questions)
     questions.forEach(question => {

@@ -25,3 +25,7 @@ body {
 #gameTitle {
 	font-size: 35px;
 }
+
+.category-card {
+	width: 18rem;
+}
