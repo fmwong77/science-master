@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-	console.log('It works');
+	let username;
 
 	api_url = 'http://127.0.0.1:3000/api/v1/';
 	// 	fetch('http://127.0.0.1:3000/api/v1/questions')
@@ -22,54 +22,87 @@ window.addEventListener('DOMContentLoaded', () => {
 	// };
 	// fetch(api_url + 'users/', configObject)
 	// 	.then((response) => response.json())
-  // 	.then((message) => console.log(message));
-  let questions;
+	// 	.then((message) => console.log(message));
+	let questions;
 
-  fetch(`${api_url}questions`)
-  .then(resp => resp.json())
-  .then(data => {
-    questions = data;
-    displayQuestionCategories(data);
-  })
-  
-  function displayQuestionCategories(categories) {
-    let categoryArr = [];
-    categories.forEach(question => {
-      categoryArr.push(question.category)
-    })
+	fetch(`${api_url}questions`)
+		.then((resp) => resp.json())
+		.then((data) => {
+			questions = data;
+			displayQuestionCategories(data);
+		});
 
-    let uniqCat = removeDup(categoryArr)
-console.log(uniqCat);
+	function displayQuestionCategories(categories) {
+		let categoryArr = [];
+		categories.forEach((question) => {
+			categoryArr.push(question.category);
+		});
 
+		let uniqCat = removeDup(categoryArr);
+		console.log(uniqCat);
 
-uniqCat.forEach(category => {
-      console.log(category)
-      const categoryContainer = document.getElementById('category-container')
-      const button = document.createElement('div');
-      button.innerText = category
-      button.id = category
-      button.addEventListener("click", displayQuestions)
-      categoryContainer.appendChild(button)
-      
+		uniqCat.forEach((category) => {
+			console.log(category);
+			const categoryContainer = document.getElementById('category-container');
+			const button = document.createElement('div');
+			button.innerText = category;
+			button.id = category;
+			button.addEventListener('click', displayQuestions);
+			categoryContainer.appendChild(button);
+		});
+	}
 
-    });
-  }
-  function displayQuestions() {
-    console.log(questions)
-    questions.forEach(question => {
-      const questionContainer = document.getElementById('question-container');
-      const questionContent = document.createElement('div');
-      questionContent.innerText = question.question
-      questionContainer.appendChild(questionContent);
-    });
-    // console.log(this.id)
-  }
+	function displayQuestions() {
+		console.log(questions);
 
-  function removeDup(categories){
-    var catsUnique = categories.filter(function(item, index){
-      return categories.indexOf(item) >= index;
-    });
+		questions.forEach((question) => {
+			const questionContainer = document.getElementById('question-container');
+			const questionContent = document.createElement('div');
+			questionContent.innerText = question.question;
+			questionContainer.appendChild(questionContent);
+		});
+		// console.log(this.id)
+	}
 
-    return catsUnique;
-  }
+	function removeDup(categories) {
+		var catsUnique = categories.filter(function(item, index) {
+			return categories.indexOf(item) >= index;
+		});
+
+		return catsUnique;
+	}
+
+	const beginButton = document.getElementById('begin');
+	beginButton.addEventListener('click', function() {
+		const username = document.getElementById('username');
+		if (username.value.trim() === '') {
+			alert('Please enter user name to begin');
+		} else {
+			username = username.value.trim();
+			Clock.start();
+			displayQuestions();
+		}
+	});
+
+	var Clock = {
+		totalSeconds: 0,
+		start: function() {
+			if (!this.interval) {
+				var self = this;
+				function pad(val) {
+					return val > 9 ? val : '0' + val;
+				}
+				this.interval = setInterval(function() {
+					self.totalSeconds += 1;
+
+					document.getElementById('min').innerHTML = pad(
+						Math.floor((self.totalSeconds / 60) % 60)
+					);
+					document.getElementById('sec').innerHTML = pad(
+						parseInt(self.totalSeconds % 60)
+					);
+				}, 1000);
+			}
+		}
+	};
 });
