@@ -1,5 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
-	console.log('It works');
+  // Declaring/defining Global Variables:
+  let categoryContainer;
+
+
 
 	api_url = 'http://127.0.0.1:3000/api/v1/';
 	// 	fetch('http://127.0.0.1:3000/api/v1/questions')
@@ -37,23 +40,64 @@ window.addEventListener('DOMContentLoaded', () => {
     categories.forEach(question => {
       categoryArr.push(question.category)
     })
-
-    let uniqCat = removeDup(categoryArr)
-console.log(uniqCat);
-
-
-uniqCat.forEach(category => {
-      console.log(category)
-      const categoryContainer = document.getElementById('category-container')
+     //Iterate through two arrays to get image and name card data
+    let uniqCat = removeDup(categoryArr);
+    const imgCat = ["chromosome", "isaac-newton", "power"]
+    let categoryContainer = document.getElementById('category-container')
+    var i;
+    for (i = 0; i < uniqCat.length; i++) {
       const button = document.createElement('div');
-      button.innerText = category
-      button.id = category
-      button.addEventListener("click", displayQuestions)
-      categoryContainer.appendChild(button)
-      
-
-    });
+      button.classList.add("card");
+      button.id = uniqCat[i]
+      button.innerHTML = `
+      <div class="card text-center" style="width: 12rem;">
+      <img class="card-img-top img-card" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
+      <div class="card-body category-card">
+        <h4 class="card-title">${uniqCat[i]}</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+      </div>
+      `
+      button.addEventListener("click", () => selectCategory(button))
+      categoryContainer.appendChild(button);
+    }
+  
   }
+
+  function selectCategory(category) {
+    // This variable stores the selected category for use in displaying questions:
+    const categoryId = category.id
+    let categoryContainer= document.getElementById('category-container');
+    categoryContainer.innerHTML = '';
+    // This is a good start point for adding animations to transitions. Leaving to come back to it: 
+    // categoryContainer.classList.add('fade-in-top')
+    displayUserForm(categoryId)
+  }
+
+  function displayUserForm(category) {
+    console.log(category)
+    let categoryContainer= document.getElementById('category-container');
+    categoryContainer.innerHTML = `
+    <h2> You selected ${category}!</h2>
+    <form id = "user">
+    <p>Create a Username to play:<p>
+    <input type="text" name="username"><br>
+    <input type="submit" value="Let's Play!">
+    </form>    
+    `
+    let submit = document.getElementById('user');
+    submit.addEventListener("submit", () => createUser(category))
+  }
+
+  function createUser(category) {
+    event.preventDefault()
+    let nameInput = document.querySelector('input')
+    let username = nameInput.value
+    //From this function, you can now access both the username and the quiz they selected:
+    console.log(username)
+    console.log(category)
+  }
+ 
   function displayQuestions() {
     console.log(questions)
     questions.forEach(question => {
