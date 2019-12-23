@@ -1,5 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
-	console.log('It works');
+  // Declaring/defining Global Variables:
+  let categoryContainer;
+
+
 
 	api_url = 'http://127.0.0.1:3000/api/v1/';
 	// 	fetch('http://127.0.0.1:3000/api/v1/questions')
@@ -40,11 +43,12 @@ window.addEventListener('DOMContentLoaded', () => {
      //Iterate through two arrays to get image and name card data
     let uniqCat = removeDup(categoryArr);
     const imgCat = ["chromosome", "isaac-newton", "power"]
-    const categoryContainer = document.getElementById('category-container')
+    let categoryContainer = document.getElementById('category-container')
     var i;
     for (i = 0; i < uniqCat.length; i++) {
       const button = document.createElement('div');
       button.classList.add("card");
+      button.id = uniqCat[i]
       button.innerHTML = `
       <div class="card text-center" style="width: 12rem;">
       <img class="card-img-top img-card" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
@@ -54,39 +58,44 @@ window.addEventListener('DOMContentLoaded', () => {
       </div>
       </div>
       `
+      button.addEventListener("click", () => selectCategory(button))
       categoryContainer.appendChild(button);
     }
-    
-
-    //Sort through each category and create buttons with IDs
-    // uniqCat.forEach(category => {
-    //   console.log(category)
-    //   const categoryContainer = document.getElementById('category-container')
-    //   const button = document.createElement('div');
-    //   button.innerText = category
-    //   button.id = category
-    //   button.innerHTML = `
-    //   <img class="card-img-top category-card" src="./images/human.svg" alt="Card image cap">
-    //   <div class="card-body">
-    //     <p class="card-text">${category}</p>
-    //   </div>
-    //   `
-    //   console.log(uniqCat)
-    //   // button.style = "width: 18rem;"
-    //   button.classList.add("card");
-    //   button.addEventListener("click", displayQuestions)
-    //   if(button.id === "Body Works: Inside & Out") {
-    //     category.innerHTML= `<img class="card-img-top" src="./images/human.svg" alt="Card image cap">
-    //     <div class="card-body">
-    //       <p class="card-text">${category}</p>
-    //     </div>`
-    //   }
-    //   categoryContainer.appendChild(button);
-    //   // displayCategoryCards(uniqCat);
-
-    // });
+  
   }
-      
+
+  function selectCategory(category) {
+    // This variable stores the selected category for use in displaying questions:
+    const categoryId = category.id
+    let categoryContainer= document.getElementById('category-container');
+    categoryContainer.innerHTML = '';
+    // categoryContainer.classList.add('fade-in-top')
+    displayUserForm(categoryId)
+  }
+
+  function displayUserForm(category) {
+    console.log(category)
+    let categoryContainer= document.getElementById('category-container');
+    categoryContainer.innerHTML = `
+    <h2> You selected ${category}!</h2>
+    <form id = "user">
+    <p>Create a Username to play:<p>
+    <input type="text" name="username"><br>
+    <input type="submit" value="Let's Play!">
+    </form>    
+    `
+    let submit = document.getElementById('user');
+    submit.addEventListener("submit", () => createUser(category))
+  }
+
+  function createUser(category) {
+    event.preventDefault()
+    let nameInput = document.querySelector('input')
+    let username = nameInput.value
+    //From this function, you can now access both the username and the quiz they selected:
+    console.log(username)
+    console.log(category)
+  }
  
   function displayQuestions() {
     console.log(questions)
