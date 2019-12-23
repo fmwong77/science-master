@@ -69,6 +69,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const categoryId = category.id
     let categoryContainer= document.getElementById('category-container');
     categoryContainer.innerHTML = '';
+    // This is a good start point for adding animations to transitions. Leaving to come back to it: 
     // categoryContainer.classList.add('fade-in-top')
     displayUserForm(categoryId)
   }
