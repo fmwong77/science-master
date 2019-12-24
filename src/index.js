@@ -47,10 +47,12 @@ window.addEventListener('DOMContentLoaded', () => {
     var i;
     for (i = 0; i < uniqCat.length; i++) {
       const button = document.createElement('div');
-      button.classList.add("card");
+      // button.classList.add("shadow-drop-2-center");
+      button.classList.add('card');
+      button.classList.add('text-center');
+      button.style.width = "12rem";
       button.id = uniqCat[i]
       button.innerHTML = `
-      <div class="card text-center" style="width: 12rem;">
       <img class="card-img-top img-card" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
       <div class="card-body category-card">
         <h4 class="card-title">${uniqCat[i]}</h4>
@@ -65,13 +67,15 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function selectCategory(category) {
+    // const button = 
     // This variable stores the selected category for use in displaying questions:
     const categoryId = category.id
     let categoryContainer= document.getElementById('category-container');
-    categoryContainer.innerHTML = '';
     // This is a good start point for adding animations to transitions. Leaving to come back to it: 
     // categoryContainer.classList.add('fade-in-top')
-    displayUserForm(categoryId)
+    // category.classList.add('selected-category');
+    category.classList.add('shadow-drop-2-center');
+    // displayUserForm(categoryId)
   }
 
   function displayUserForm(category) {
