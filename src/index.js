@@ -1,5 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
 	let username;
+	// Declaring/defining Global Variables:
+	let categoryContainer;
 
 	api_url = 'http://127.0.0.1:3000/api/v1/';
 	// 	fetch('http://127.0.0.1:3000/api/v1/questions')
@@ -37,52 +39,53 @@ window.addEventListener('DOMContentLoaded', () => {
 		categories.forEach((question) => {
 			categoryArr.push(question.category);
 		});
-
+		//Iterate through two arrays to get image and name card data
 		let uniqCat = removeDup(categoryArr);
-		console.log(uniqCat);
-
-		uniqCat.forEach((category) => {
-			console.log(category);
-			const categoryContainer = document.getElementById('category-container');
+		const imgCat = ['chromosome', 'isaac-newton', 'power'];
+		let categoryContainer = document.getElementById('category-container');
+		var i;
+		for (i = 0; i < uniqCat.length; i++) {
 			const button = document.createElement('div');
-			button.innerText = category;
-			button.id = category;
-			button.addEventListener('click', displayQuestions);
+			button.classList.add('card');
+			button.id = uniqCat[i];
+			button.innerHTML = `
+      <div class="card text-center" style="width: 12rem;">
+      <img class="card-img-top img-card" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
+      <div class="card-body category-card">
+        <h4 class="card-title">${uniqCat[i]}</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+      </div>
+      `;
+			button.addEventListener('click', () => selectCategory(button));
 			categoryContainer.appendChild(button);
-		});
-	}
-
-	function displayQuestions() {
-		console.log(questions);
-
-		questions.forEach((question) => {
-			const questionContainer = document.getElementById('question-container');
-			const questionContent = document.createElement('div');
-			questionContent.innerText = question.question;
-			questionContainer.appendChild(questionContent);
-		});
-		// console.log(this.id)
-	}
-
-	function removeDup(categories) {
-		var catsUnique = categories.filter(function(item, index) {
-			return categories.indexOf(item) >= index;
-		});
-
-		return catsUnique;
-	}
-
-	const beginButton = document.getElementById('begin');
-	beginButton.addEventListener('click', function() {
-		const username = document.getElementById('username');
-		if (username.value.trim() === '') {
-			alert('Please enter user name to begin');
-		} else {
-			username = username.value.trim();
-			Clock.start();
-			displayQuestions();
 		}
-	});
+	}
+
+	function selectCategory(category) {
+		// This variable stores the selected category for use in displaying questions:
+		const categoryId = category.id;
+		let categoryContainer = document.getElementById('category-container');
+		categoryContainer.innerHTML = '';
+		// This is a good start point for adding animations to transitions. Leaving to come back to it:
+		// categoryContainer.classList.add('fade-in-top')
+		displayUserForm(categoryId);
+	}
+
+	function displayUserForm(category) {
+		console.log(category);
+		categoryContainer = document.getElementById('category-container');
+		categoryContainer.innerHTML = `
+    <h2> You selected ${category}!</h2>
+    <form id = "user">
+    <input type="text" name="username" placeholder="enter username to play">
+    <input type="submit" value="Let's Play!">
+    </form>    
+		`;
+
+		let submit = document.getElementById('user');
+		submit.addEventListener('submit', () => beginQuiz(category));
+	}
 
 	var Clock = {
 		totalSeconds: 0,
@@ -105,4 +108,41 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 	};
+
+	function beginQuiz(category) {
+		event.preventDefault();
+		let nameInput = document.querySelector('input');
+
+		if (nameInput.value.trim() === '') {
+			alert('Please enter user name to begin');
+		} else {
+			let username = nameInput.value.trim();
+			//From this function, you can now access both the username and the quiz they selected:
+
+			categoryContainer.innerHTML = '';
+			displayQuestions(category);
+			Clock.start();
+		}
+	}
+
+	function displayQuestions(category) {
+		let questionsByCat = questions.filter(function(e) {
+			return e.category === category;
+		});
+
+		questionsByCat.forEach((question) => {
+			const questionContainer = document.getElementById('question-container');
+			const questionContent = document.createElement('div');
+			questionContent.innerText = question.question;
+			questionContainer.appendChild(questionContent);
+		});
+	}
+
+	function removeDup(categories) {
+		var catsUnique = categories.filter(function(item, index) {
+			return categories.indexOf(item) >= index;
+		});
+
+		return catsUnique;
+	}
 });

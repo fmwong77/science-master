@@ -6,22 +6,41 @@
   <title></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
   <script src="./index.js"></script>
 </head>
 
 <body>
-  <span id="min">00</span>:<span id="sec">00</span>
-  <div id="category-container">
-  </div>
+  <div class="container-fluid my-container">
+    <div class="row align-items-center" id="navigationRow">
+      <div class="col-4">
+        <div>
+          <img id="planetIcon" src="./images/planet.svg" alt="Planet">
+        </div>
 
-  <div id="question-container">
+      </div>
+      <div class="col-4">
+        <p id="gameTitle">Welcome to ScienceMaster!</p>
+      </div>
+      <div class="col-4 d-flex flex-row-reverse">
+        <div>
+          <span id="min">00</span>:<span id="sec">00</span>
+          <img id="beakerIcon" src="./images/beaker.svg" alt="Beaker">
+        </div>
+      </div>
 
-  </div>
+    </div>
+    <div id="category-container" class="row justify-content-center justify-content-around">
+    </div>
+    <div class="row">
 
-  <div id="username-container">
-    <input type="text" id="username" placeholder="enter user name">
-    <button id='begin'>Let's begin</button>
+    </div>
+    <!-- Questions Begin Here:-->
+    <div id="question-container">
+
+    </div>
   </div>
 </body>
 
