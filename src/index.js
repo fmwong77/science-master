@@ -78,8 +78,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function displayUserForm(category) {
-    console.log(category)
     let categoryContainer= document.getElementById('category-container');
+    categoryContainer.classList.add('slide-in-left');
     categoryContainer.innerHTML = `
     <h2> You selected ${category}!</h2>
     <form id = "user">
