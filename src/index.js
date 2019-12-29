@@ -43,7 +43,9 @@ window.addEventListener('DOMContentLoaded', () => {
      //Iterate through two arrays to get image and name card data
     let uniqCat = removeDup(categoryArr);
     const imgCat = ["chromosome", "isaac-newton", "power"]
-    let categoryContainer = document.getElementById('category-container')
+    let categoryContainer = document.getElementById('category-container');
+    let classes = ['row', 'justify-content-center', 'justify-content-around']
+    categoryContainer.classList.add(...classes)
     var i;
     for (i = 0; i < uniqCat.length; i++) {
       const button = document.createElement('div');
@@ -69,24 +71,25 @@ window.addEventListener('DOMContentLoaded', () => {
   function selectCategory(category) {
     // This variable stores the selected category for use in displaying questions:
     const categoryId = category.id
-    let categoryContainer= document.getElementById('category-container');
-    // This is a good start point for adding animations to transitions. Leaving to come back to it: 
-    // categoryContainer.classList.add('fade-in-top')
-    // category.classList.add('selected-category');
     category.classList.add('shadow-drop-2-center'); 
     setTimeout(displayUserForm, 800, categoryId);
   }
 
   function displayUserForm(category) {
     let categoryContainer= document.getElementById('category-container');
-    categoryContainer.classList.add('slide-in-left');
+    categoryContainer.setAttribute("class", " ");
+    categoryContainer.classList.add('slide-in-left', 'container');
     categoryContainer.innerHTML = `
+    <div class = "row justify-content-center">
+    <div class = "col-8">
     <h2> You selected ${category}!</h2>
     <form id = "user">
     <p>Create a Username to play:<p>
     <input type="text" name="username"><br>
     <input type="submit" value="Let's Play!">
-    </form>    
+    </form> 
+    </div>  
+    </div> 
     `
     let submit = document.getElementById('user');
     submit.addEventListener("submit", () => createUser(category))
