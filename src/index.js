@@ -75,7 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // categoryContainer.classList.add('fade-in-top')
     // category.classList.add('selected-category');
     category.classList.add('shadow-drop-2-center');
-    // displayUserForm(categoryId)
+    displayUserForm(categoryId)
   }
 
   function displayUserForm(category) {
