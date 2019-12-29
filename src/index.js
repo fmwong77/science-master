@@ -67,15 +67,14 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function selectCategory(category) {
-    // const button = 
     // This variable stores the selected category for use in displaying questions:
     const categoryId = category.id
     let categoryContainer= document.getElementById('category-container');
     // This is a good start point for adding animations to transitions. Leaving to come back to it: 
     // categoryContainer.classList.add('fade-in-top')
     // category.classList.add('selected-category');
-    category.classList.add('shadow-drop-2-center');
-    displayUserForm(categoryId)
+    category.classList.add('shadow-drop-2-center'); 
+    setTimeout(displayUserForm, 800, categoryId);
   }
 
   function displayUserForm(category) {
