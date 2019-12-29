@@ -38,7 +38,9 @@ body {
 	border-color: black; */
 	/* background-color: #ffc600; */
 }
-
+.card-style {
+	padding: 15px;
+}
 .selected-category {
 	border-style: solid;
 	border-color: blue;

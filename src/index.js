@@ -43,22 +43,21 @@ window.addEventListener('DOMContentLoaded', () => {
      //Iterate through two arrays to get image and name card data
     let uniqCat = removeDup(categoryArr);
     const imgCat = ["chromosome", "isaac-newton", "power"]
+    const catDesc = ["Test your knowledge of the human body!", "Let's see how well you know your physics!", "Test your knowledge of Electricity!"]
     let categoryContainer = document.getElementById('category-container');
     let classes = ['row', 'justify-content-center', 'justify-content-around']
-    categoryContainer.classList.add(...classes)
+    categoryContainer.classList.add(...classes);
     var i;
     for (i = 0; i < uniqCat.length; i++) {
       const button = document.createElement('div');
-      // button.classList.add("shadow-drop-2-center");
-      button.classList.add('card');
-      button.classList.add('text-center');
-      button.style.width = "12rem";
+      button.classList.add('card', 'text-center');
+      button.style.width = "14rem";
       button.id = uniqCat[i]
       button.innerHTML = `
-      <img class="card-img-top img-card" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
+      <img class="card-img-top img-card card-style" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
       <div class="card-body category-card">
         <h4 class="card-title">${uniqCat[i]}</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-text">${catDesc[i]}</p>
       </div>
       </div>
       `
