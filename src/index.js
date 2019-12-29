@@ -43,18 +43,21 @@ window.addEventListener('DOMContentLoaded', () => {
      //Iterate through two arrays to get image and name card data
     let uniqCat = removeDup(categoryArr);
     const imgCat = ["chromosome", "isaac-newton", "power"]
-    let categoryContainer = document.getElementById('category-container')
+    const catDesc = ["Test your knowledge of the human body!", "Let's see how well you know your physics!", "Test your knowledge of Electricity!"]
+    let categoryContainer = document.getElementById('category-container');
+    let classes = ['row', 'justify-content-center', 'justify-content-around']
+    categoryContainer.classList.add(...classes);
     var i;
     for (i = 0; i < uniqCat.length; i++) {
       const button = document.createElement('div');
-      button.classList.add("card");
+      button.classList.add('card', 'text-center');
+      button.style.width = "14rem";
       button.id = uniqCat[i]
       button.innerHTML = `
-      <div class="card text-center" style="width: 12rem;">
-      <img class="card-img-top img-card" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
+      <img class="card-img-top img-card card-style" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
       <div class="card-body category-card">
         <h4 class="card-title">${uniqCat[i]}</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-text">${catDesc[i]}</p>
       </div>
       </div>
       `
@@ -67,23 +70,27 @@ window.addEventListener('DOMContentLoaded', () => {
   function selectCategory(category) {
     // This variable stores the selected category for use in displaying questions:
     const categoryId = category.id
-    let categoryContainer= document.getElementById('category-container');
-    categoryContainer.innerHTML = '';
-    // This is a good start point for adding animations to transitions. Leaving to come back to it: 
-    // categoryContainer.classList.add('fade-in-top')
-    displayUserForm(categoryId)
+    category.classList.add('shadow-drop-2-center'); 
+    setTimeout(displayUserForm, 800, categoryId);
   }
 
   function displayUserForm(category) {
-    console.log(category)
     let categoryContainer= document.getElementById('category-container');
+    categoryContainer.setAttribute("class", " ");
+    categoryContainer.classList.add('slide-in-left', 'container', 'form-container');
     categoryContainer.innerHTML = `
-    <h2> You selected ${category}!</h2>
+    <div class = "row justify-content-center">
+    <div class = "col-8">
+    <h2 id= "selection-text"> You selected ${category}!</h2>
     <form id = "user">
-    <p>Create a Username to play:<p>
-    <input type="text" name="username"><br>
-    <input type="submit" value="Let's Play!">
-    </form>    
+    <div class="form-group">
+    <h3 id= "create-user">Create a Username to play:</h3>
+    <input type="text" name="username" placeholder="Username" class= "form-control form-control-lg"><br>
+    <input type="submit" class="btn btn-primary" value="Let's Play!">
+    </div>
+    </form> 
+    </div>  
+    </div> 
     `
     let submit = document.getElementById('user');
     submit.addEventListener("submit", () => createUser(category))
