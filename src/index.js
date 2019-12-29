@@ -78,15 +78,17 @@ window.addEventListener('DOMContentLoaded', () => {
   function displayUserForm(category) {
     let categoryContainer= document.getElementById('category-container');
     categoryContainer.setAttribute("class", " ");
-    categoryContainer.classList.add('slide-in-left', 'container');
+    categoryContainer.classList.add('slide-in-left', 'container', 'form-container');
     categoryContainer.innerHTML = `
     <div class = "row justify-content-center">
     <div class = "col-8">
-    <h2> You selected ${category}!</h2>
+    <h2 id= "selection-text"> You selected ${category}!</h2>
     <form id = "user">
-    <p>Create a Username to play:<p>
-    <input type="text" name="username"><br>
-    <input type="submit" value="Let's Play!">
+    <div class="form-group">
+    <h3 id= "create-user">Create a Username to play:</h3>
+    <input type="text" name="username" placeholder="Username" class= "form-control form-control-lg"><br>
+    <input type="submit" class="btn btn-primary" value="Let's Play!">
+    </div>
     </form> 
     </div>  
     </div> 
