@@ -187,7 +187,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			const answerContainer = document.getElementById('answer-container');
 			answerContainer.innerHTML = '';
 			answers.forEach((answer) => {
-				const answerContent = document.createElement('div');
+				const answerContent = document.createElement('button');
+				const buttonClasses= ['ui', 'orange', 'basic', 'button']
+				answerContent.classList.add(...buttonClasses);
 				// answerContent.id = answerId;
 				answerContent.setAttribute('data-isCorrect', answer.answer);
 
