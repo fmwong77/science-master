@@ -1,31 +1,19 @@
 window.addEventListener('DOMContentLoaded', () => {
-	let username;
 	// Declaring/defining Global Variables:
+	let username;
 	let categoryContainer;
+	let questions;
+	let questionId = 1;
+	let points = 0;
+	let next = 0;
+	let questionCategory;
+	let nextContainer;
 
 	api_url = 'http://127.0.0.1:3000/api/v1/';
 	// 	fetch('http://127.0.0.1:3000/api/v1/questions')
 	// 		.then((response) => response.json())
 	// 		.then((object) => console.log(object));
 	// });
-	// let data = {
-	// 	username: 'faith',
-	// 	score: 50,
-	// 	time: '20mins'
-	// };
-
-	// const configObject = {
-	// 	method: 'POST',
-	// 	headers: {
-	// 		Accept: 'application/json',
-	// 		'Content-Type': 'application/json'
-	// 	},
-	// 	body: JSON.stringify(data)
-	// };
-	// fetch(api_url + 'users/', configObject)
-	// 	.then((response) => response.json())
-	// 	.then((message) => console.log(message));
-	let questions;
 
 	fetch(`${api_url}questions`)
 		.then((resp) => resp.json())
@@ -42,18 +30,25 @@ window.addEventListener('DOMContentLoaded', () => {
 		//Iterate through two arrays to get image and name card data
 		let uniqCat = removeDup(categoryArr);
 		const imgCat = ['chromosome', 'isaac-newton', 'power'];
+		const catDesc = [
+			'Test your knowledge of the human body!',
+			"Let's see how well you know your physics!",
+			'Test your knowledge of Electricity!'
+		];
 		let categoryContainer = document.getElementById('category-container');
+		let classes = ['row', 'justify-content-center', 'justify-content-around'];
+		categoryContainer.classList.add(...classes);
 		var i;
 		for (i = 0; i < uniqCat.length; i++) {
 			const button = document.createElement('div');
-			button.classList.add('card');
+			button.classList.add('card', 'text-center');
+			button.style.width = '14rem';
 			button.id = uniqCat[i];
 			button.innerHTML = `
-      <div class="card text-center" style="width: 12rem;">
-      <img class="card-img-top img-card" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
+      <img class="card-img-top img-card card-style" src="./images/${imgCat[i]}.svg" alt="${imgCat[i]}">
       <div class="card-body category-card">
         <h4 class="card-title">${uniqCat[i]}</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-text">${catDesc[i]}</p>
       </div>
       </div>
       `;
@@ -65,26 +60,45 @@ window.addEventListener('DOMContentLoaded', () => {
 	function selectCategory(category) {
 		// This variable stores the selected category for use in displaying questions:
 		const categoryId = category.id;
-		let categoryContainer = document.getElementById('category-container');
-		categoryContainer.innerHTML = '';
-		// This is a good start point for adding animations to transitions. Leaving to come back to it:
-		// categoryContainer.classList.add('fade-in-top')
-		displayUserForm(categoryId);
+		category.classList.add('shadow-drop-2-center');
+		setTimeout(displayUserForm, 800, categoryId);
 	}
 
 	function displayUserForm(category) {
-		console.log(category);
-		categoryContainer = document.getElementById('category-container');
+		let categoryContainer = document.getElementById('category-container');
+		categoryContainer.setAttribute('class', ' ');
+		categoryContainer.classList.add(
+			'slide-in-left',
+			'container',
+			'form-container'
+		);
 		categoryContainer.innerHTML = `
-    <h2> You selected ${category}!</h2>
+    <div class = "row justify-content-center">
+    <div class = "col-6">
+    <h2 id= "selection-text"> You selected ${category}!</h2>
     <form id = "user">
-    <input type="text" name="username" placeholder="enter username to play">
-    <input type="submit" value="Let's Play!">
-    </form>    
+    <div class="form-group">
+    <input type="text" name="username" placeholder="Create a Username to play" class= "form-control form-control-lg"><br>
+    <input type="submit" class="btn btn-primary" value="Let's Play!">
+    </div>
+    </form> 
+    </div>  
+    </div> 
 		`;
+		questionCategory = category;
 
 		let submit = document.getElementById('user');
-		submit.addEventListener('submit', () => beginQuiz(category));
+		submit.addEventListener('submit', createUser);
+	}
+
+	function createUser() {
+		event.preventDefault();
+		let nameInput = document.querySelector('input');
+		let username = nameInput.value;
+		//From this function, you can now access both the username and the quiz they selected:
+		beginQuiz();
+		// console.log(username);
+		// console.log(category);
 	}
 
 	var Clock = {
@@ -106,10 +120,14 @@ window.addEventListener('DOMContentLoaded', () => {
 					);
 				}, 1000);
 			}
+		},
+		pause: function() {
+			clearInterval(this.interval);
+			delete this.interval;
 		}
 	};
 
-	function beginQuiz(category) {
+	function beginQuiz() {
 		event.preventDefault();
 		let nameInput = document.querySelector('input');
 
@@ -119,23 +137,104 @@ window.addEventListener('DOMContentLoaded', () => {
 			let username = nameInput.value.trim();
 			//From this function, you can now access both the username and the quiz they selected:
 
-			categoryContainer.innerHTML = '';
-			displayQuestions(category);
+			displayQuestions();
 			Clock.start();
 		}
 	}
 
-	function displayQuestions(category) {
+	function displayQuestions() {
+		const userForm = document.getElementById('user');
+		userForm.innerHTML = '';
+
 		let questionsByCat = questions.filter(function(e) {
-			return e.category === category;
+			return e.category === questionCategory;
 		});
 
-		questionsByCat.forEach((question) => {
+		for (i = next; i < questionsByCat.length; i++) {
 			const questionContainer = document.getElementById('question-container');
+			questionContainer.innerHTML = '';
 			const questionContent = document.createElement('div');
-			questionContent.innerText = question.question;
+			questionContent.innerText = questionsByCat[i].question;
 			questionContainer.appendChild(questionContent);
-		});
+
+			nextContainer = document.getElementById('next-container');
+			nextContainer.innerHTML = '';
+
+			const answers = questionsByCat[i].answers;
+			let answerId = 1;
+			const answerContainer = document.getElementById('answer-container');
+			answerContainer.innerHTML = '';
+			answers.forEach((answer) => {
+				const answerContent = document.createElement('div');
+				answerContent.id = answerId;
+				answerContent.setAttribute('data-isCorrect', answer.answer);
+
+				if (i === questionsByCat.length - 1) {
+					answerContent.setAttribute('data-isLastQuestion', true);
+				} else {
+					answerContent.setAttribute('data-isLastQuestion', false);
+				}
+
+				answerContent.innerText = answer.text;
+				answerContent.addEventListener('click', isAnswerCorrect);
+				answerContainer.appendChild(answerContent);
+				answerId++;
+			});
+
+			return;
+		}
+	}
+
+	function isAnswerCorrect() {
+		console.log(this.getAttribute('data-isCorrect'));
+
+		// if (this.getAttribute('data-isCorrect')) {
+		// 	points = points + 10;
+		// } else {
+		// 	points = points - 10;
+		// }
+
+		const nextDiv = document.createElement('div');
+		if (this.getAttribute('data-islastquestion') === 'true') {
+			nextDiv.innerHTML = `<input type="button" class="btn btn-primary" value="Submit">`;
+			nextDiv.addEventListener('click', submit);
+		} else {
+			nextDiv.innerHTML = `<input type="button" class="btn btn-primary" value="Next">`;
+			nextDiv.addEventListener('click', showNext);
+		}
+
+		nextContainer.appendChild(nextDiv);
+	}
+
+	function showNext() {
+		next++;
+		displayQuestions();
+	}
+
+	function submit() {
+		Clock.pause();
+		const minute = document.getElementById(min);
+		const second = document.getElementById(sec);
+		const totalTime = `${min.innerText}:${sec.innerText}`;
+
+		let data = {
+			username: username,
+			score: 100,
+			time: totalTime
+		};
+
+		const configObject = {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		};
+
+		fetch(api_url + 'users/', configObject)
+			.then((response) => response.json())
+			.then((message) => console.log(message));
 	}
 
 	function removeDup(categories) {
