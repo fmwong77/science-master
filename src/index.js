@@ -162,7 +162,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 	function displayQuestions() {
 		const userForm = document.getElementById('user');
-		userForm.innerHTML = '';
+		userForm.classList.add('hide');
+		const questionBox = document.getElementById('question-box');
+		questionBox.classList.add('show');
 		displayScorePanel();
 
 		let questionsByCat = questions.filter(function(e) {
@@ -172,7 +174,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		for (i = next; i < questionsByCat.length; i++) {
 			const questionContainer = document.getElementById('question-container');
 			questionContainer.innerHTML = '';
-			const questionContent = document.createElement('div');
+			const questionContent = document.createElement('h4');
+			questionContent.classList.add('question-heading');
 			questionContent.innerText = questionsByCat[i].question;
 			questionContainer.appendChild(questionContent);
 

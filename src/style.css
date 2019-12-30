@@ -67,9 +67,15 @@ body {
 	display: none;
 }
 
+.show {
+	display: inline-block;
+}
 
+/* Styling the questions jumbotron: */
 
-
+.question-heading {
+	text-align: center;
+}
 
 
 
