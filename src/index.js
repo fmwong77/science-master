@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	let categoryContainer;
 	let questions;
 	let questionId = 1;
-	let points = 0;
+	let scores = 0;
 	let next = 0;
 	let questionCategory;
 	let nextContainer;
@@ -94,11 +94,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	function createUser() {
 		event.preventDefault();
 		let nameInput = document.querySelector('input');
-		let username = nameInput.value;
+		username = nameInput.value;
 		//From this function, you can now access both the username and the quiz they selected:
 		beginQuiz();
-		// console.log(username);
-		// console.log(category);
 	}
 
 	var Clock = {
@@ -121,7 +119,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				}, 1000);
 			}
 		},
-		pause: function() {
+		stop: function() {
 			clearInterval(this.interval);
 			delete this.interval;
 		}
@@ -134,10 +132,10 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (nameInput.value.trim() === '') {
 			alert('Please enter user name to begin');
 		} else {
-			let username = nameInput.value.trim();
+			// let username = nameInput.value.trim();
 			//From this function, you can now access both the username and the quiz they selected:
-
-			displayQuestions();
+			let count = 0;
+			displayQuestions(count);
 			Clock.start();
 		}
 	}
@@ -161,12 +159,12 @@ window.addEventListener('DOMContentLoaded', () => {
 			nextContainer.innerHTML = '';
 
 			const answers = questionsByCat[i].answers;
-			let answerId = 1;
+			// let answerId = 1;
 			const answerContainer = document.getElementById('answer-container');
 			answerContainer.innerHTML = '';
 			answers.forEach((answer) => {
 				const answerContent = document.createElement('div');
-				answerContent.id = answerId;
+				// answerContent.id = answerId;
 				answerContent.setAttribute('data-isCorrect', answer.answer);
 
 				if (i === questionsByCat.length - 1) {
@@ -178,7 +176,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				answerContent.innerText = answer.text;
 				answerContent.addEventListener('click', isAnswerCorrect);
 				answerContainer.appendChild(answerContent);
-				answerId++;
+				// answerId++;
 			});
 
 			return;
@@ -188,38 +186,46 @@ window.addEventListener('DOMContentLoaded', () => {
 	function isAnswerCorrect() {
 		console.log(this.getAttribute('data-isCorrect'));
 
-		// if (this.getAttribute('data-isCorrect')) {
-		// 	points = points + 10;
-		// } else {
-		// 	points = points - 10;
-		// }
-
 		const nextDiv = document.createElement('div');
 		if (this.getAttribute('data-islastquestion') === 'true') {
 			nextDiv.innerHTML = `<input type="button" class="btn btn-primary" value="Submit">`;
-			nextDiv.addEventListener('click', submit);
+			nextDiv.addEventListener('click', () =>
+				submit(this.getAttribute('data-isCorrect'))
+			);
 		} else {
 			nextDiv.innerHTML = `<input type="button" class="btn btn-primary" value="Next">`;
-			nextDiv.addEventListener('click', showNext);
+			nextDiv.addEventListener('click', () =>
+				showNext(this.getAttribute('data-isCorrect'))
+			);
 		}
 
 		nextContainer.appendChild(nextDiv);
 	}
 
-	function showNext() {
+	function calculateScores(isCorrect) {
+		if (isCorrect === 'true') {
+			scores = scores + 10;
+		}
+		console.log(scores);
+	}
+
+	function showNext(isCorrect) {
+		calculateScores(isCorrect);
 		next++;
 		displayQuestions();
 	}
 
-	function submit() {
-		Clock.pause();
+	function submit(isCorrect) {
+		Clock.stop();
+		calculateScores(isCorrect);
+
 		const minute = document.getElementById(min);
 		const second = document.getElementById(sec);
 		const totalTime = `${min.innerText}:${sec.innerText}`;
 
 		let data = {
 			username: username,
-			score: 100,
+			score: scores,
 			time: totalTime
 		};
 
