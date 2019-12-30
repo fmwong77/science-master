@@ -155,7 +155,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			questionContent.innerText = questionsByCat[i].question;
 			questionContainer.appendChild(questionContent);
 
-			nextContainer = document.getElementById('next-container');
+			nextContainer = document.getElementById('next-button-container');
 			nextContainer.innerHTML = '';
 
 			const answers = questionsByCat[i].answers;
@@ -241,6 +241,37 @@ window.addEventListener('DOMContentLoaded', () => {
 		fetch(api_url + 'users/', configObject)
 			.then((response) => response.json())
 			.then((message) => console.log(message));
+
+		showResult(totalTime);
+	}
+
+	function showResult(totalTime) {
+		const questionContainer = document.getElementById('question-container');
+		questionContainer.innerHTML = '';
+		const answerContainer = document.getElementById('answer-container');
+		answerContainer.innerHTML = '';
+		const nextButtonContainer = document.getElementById(
+			'next-button-container'
+		);
+		nextButtonContainer.innerHTML = '';
+
+		const resultContainer = document.getElementById('result-container');
+		resultContainer.innerHTML = `
+    <div class = "row justify-content-center">
+    <div class = "col-6">
+    <h3> Your scores is ${scores}!</h3>
+    <h3> You completed the trivia in ${totalTime}!</h3>
+    <input id="play-again" type="button" class="btn btn-primary" value="Let's Play Again!">
+    </div>  
+    </div> 
+		`;
+
+		const playAgain = document.getElementById('play-again');
+		playAgain.addEventListener('click', showHome);
+	}
+
+	function showHome() {
+		location.reload();
 	}
 
 	function removeDup(categories) {
