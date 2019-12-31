@@ -9,11 +9,22 @@ window.addEventListener('DOMContentLoaded', () => {
 	let questionCategory;
 	let nextContainer;
 
+	function hide(elements) {
+		elements = elements.length ? elements : [elements];
+		for (var index = 0; index < elements.length; index++) {
+			elements[index].style.display = 'none';
+		}
+	}
+
+	function show(elements) {
+		elements = elements.length ? elements : [elements];
+		for (var index = 0; index < elements.length; index++) {
+			elements[index].style.display = 'block';
+		}
+	}
+
+	hide(document.getElementById('pagination'));
 	api_url = 'http://127.0.0.1:3000/api/v1/';
-	// 	fetch('http://127.0.0.1:3000/api/v1/questions')
-	// 		.then((response) => response.json())
-	// 		.then((object) => console.log(object));
-	// });
 
 	fetch(`${api_url}questions`)
 		.then((resp) => resp.json())
@@ -171,6 +182,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			return e.category === questionCategory;
 		});
 
+		show(document.getElementById('pagination'));
+
 		for (i = next; i < questionsByCat.length; i++) {
 			const questionContainer = document.getElementById('question-container');
 			questionContainer.innerHTML = '';
@@ -179,7 +192,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			questionContent.innerText = questionsByCat[i].question;
 			questionContainer.appendChild(questionContent);
 
-			nextContainer = document.getElementById('next-container');
+			nextContainer = document.getElementById('next-button-container');
 			nextContainer.innerHTML = '';
 
 			const answers = questionsByCat[i].answers;
@@ -238,6 +251,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	function showNext(isCorrect) {
 		calculateScores(isCorrect);
 		next++;
+		pagination({ target: selectAll('circle')[next] });
 		displayQuestions();
 	}
 
@@ -267,6 +281,37 @@ window.addEventListener('DOMContentLoaded', () => {
 		fetch(api_url + 'users/', configObject)
 			.then((response) => response.json())
 			.then((message) => console.log(message));
+
+		showResult(totalTime);
+	}
+
+	function showResult(totalTime) {
+		const questionContainer = document.getElementById('question-container');
+		questionContainer.innerHTML = '';
+		const answerContainer = document.getElementById('answer-container');
+		answerContainer.innerHTML = '';
+		const nextButtonContainer = document.getElementById(
+			'next-button-container'
+		);
+		nextButtonContainer.innerHTML = '';
+
+		const resultContainer = document.getElementById('result-container');
+		resultContainer.innerHTML = `
+    <div class = "row justify-content-center">
+    <div class = "col-6">
+    <h3> Your scores is ${scores}!</h3>
+    <h3> You completed the trivia in ${totalTime}!</h3>
+    <input id="play-again" type="button" class="btn btn-primary" value="Let's Play Again!">
+    </div>  
+    </div> 
+		`;
+
+		const playAgain = document.getElementById('play-again');
+		playAgain.addEventListener('click', showHome);
+	}
+
+	function showHome() {
+		location.reload();
 	}
 
 	function removeDup(categories) {
@@ -276,4 +321,67 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		return catsUnique;
 	}
+
+	var xmlns = 'http://www.w3.org/2000/svg',
+		xlinkns = 'http://www.w3.org/1999/xlink',
+		select = function(s) {
+			return document.querySelector(s);
+		},
+		selectAll = function(s) {
+			return document.querySelectorAll(s);
+		},
+		size = 20;
+
+	TweenMax.set('svg', {
+		visibility: 'visible'
+	});
+
+	select('#joinLine').setAttribute('stroke-width', size);
+	var maskSource = select('#circleGroup').cloneNode(true);
+	maskSource.id = '';
+	maskSource.setAttribute('fill', '#FFF');
+	maskSource.setAttribute('stroke', '#777777');
+	maskSource.setAttribute('stroke-width', 5);
+	select('#radioMask').appendChild(maskSource);
+	select('#mainGroup').setAttribute('mask', 'url(#radioMask)');
+	let pagination = function(e) {
+		var target = e.target;
+		if (target.tagName == 'circle') {
+			var id = target.id;
+
+			var tl = new TimelineMax();
+			tl.to('#joinLine', 0.3, {
+				attr: {
+					x2: target.getAttribute('cx')
+				},
+				strokeWidth: 0,
+				ease: Power2.easeIn
+			})
+				.to(
+					'#joinLine',
+					1,
+					{
+						attr: {
+							x1: target.getAttribute('cx')
+						},
+						ease: Elastic.easeOut.config(1, 0.76)
+					},
+					'+=0'
+				)
+				.to(
+					'#joinLine',
+					2,
+					{
+						strokeWidth: size,
+						ease: Elastic.easeOut.config(1, 0.8)
+					},
+					'-=1'
+				);
+
+			tl.timeScale(2);
+		}
+	};
+
+	//automate the first one
+	pagination({ target: selectAll('circle')[0] });
 });
