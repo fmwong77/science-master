@@ -203,7 +203,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				const answerContent = document.createElement('button');
 				const buttonClasses= ['ui', 'orange', 'basic', 'button', 'p-2']
 				answerContent.classList.add(...buttonClasses);
-				// answerContent.id = answerId;
+				answerContent.id = answer.id;
 				answerContent.setAttribute('data-isCorrect', answer.answer);
 
 				if (i === questionsByCat.length - 1) {
@@ -224,6 +224,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	function isAnswerCorrect() {
 		console.log(this.getAttribute('data-isCorrect'));
+		answerInteraction();
 
 		const nextDiv = document.createElement('div');
 		if (this.getAttribute('data-islastquestion') === 'true') {
@@ -241,6 +242,25 @@ window.addEventListener('DOMContentLoaded', () => {
 		nextContainer.appendChild(nextDiv);
 	}
 
+	function answerInteraction() {
+		const answerContainer = document.getElementById('answer-container');
+		const answers = answerContainer.childNodes;
+
+		for (let i = 0; i < answers.length; i++) {
+			// console.log(answers[i])
+			let truthiness = answers[i].getAttribute('data-iscorrect');
+			// let button = document.getElementById('')
+			console.log(truthiness)
+
+			if (truthiness === "true") {
+				answers[i].classList.add('colorswitch')
+				
+			} else {
+				answers[i].classList.add('colorswitch2')
+			}
+		
+		}
+	}
 	function calculateScores(isCorrect) {
 		if (isCorrect === 'true') {
 			scores = scores + 10;
