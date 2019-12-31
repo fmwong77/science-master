@@ -25,21 +25,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	hide(document.getElementById('pagination'));
 	api_url = 'http://127.0.0.1:3000/api/v1/';
 
-	fetch(`${api_url}scores`)
+	fetch(`${api_url}questions`)
 		.then((resp) => resp.json())
 		.then((data) => {
-			console.log(data);
-
-			// questions = data;
-			// displayQuestionCategories(data);
+			questions = data;
+			displayQuestionCategories(data);
 		});
-
-	// fetch(`${api_url}questions`)
-	// 	.then((resp) => resp.json())
-	// 	.then((data) => {
-	// 		questions = data;
-	// 		displayQuestionCategories(data);
-	// 	});
 
 	function displayQuestionCategories(categories) {
 		let categoryArr = [];
@@ -98,6 +89,7 @@ window.addEventListener('DOMContentLoaded', () => {
     <form id = "user">
     <div class="form-group">
     <input type="text" name="username" placeholder="Create a Username to play" class= "form-control form-control-lg"><br>
+    <input id="switchCategory" type="button" class="btn btn-primary" value="Select Other Trivia Category">
     <input type="submit" class="btn btn-primary" value="Let's Play!">
     </div>
     </form> 
@@ -108,6 +100,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		let submit = document.getElementById('user');
 		submit.addEventListener('submit', createUser);
+
+		let switchCategory = document.getElementById('switchCategory');
+		switchCategory.addEventListener('click', showHome);
 	}
 
 	function createUser() {
@@ -368,4 +363,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	//automate the first one
 	pagination({ target: selectAll('circle')[0] });
+
+	function showRanking() {
+		fetch(`${api_url}scores`)
+			.then((resp) => resp.json())
+			.then((data) => {
+				console.log(data);
+			});
+	}
 });
