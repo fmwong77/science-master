@@ -84,17 +84,17 @@ window.addEventListener('DOMContentLoaded', () => {
 			'form-container'
 		);
 		categoryContainer.innerHTML = `
-    <div class = "row justify-content-center">
-    <div class = "col-6">
-    <h2 id= "selection-text"> You selected ${category}!</h2>
-    <form id = "user">
-    <div class="form-group">
-    <input type="text" name="username" placeholder="Create a Username to play" class= "form-control form-control-lg"><br>
-    <input type="submit" class="btn btn-primary" value="Let's Play!">
-    </div>
-    </form> 
-    </div>  
-    </div> 
+			<div class = "row justify-content-center">
+			<div class = "col-6">
+			<h2 id= "selection-text"> You selected ${category}!</h2>
+			<form id = "user">
+			<div class="form-group">
+			<input type="text" name="username" placeholder="Create a Username to play" class= "form-control form-control-lg"><br>
+			<input type="submit" class="btn btn-primary" value="Let's Play!">
+			</div>
+			</form> 
+			</div>  
+			</div> 
 		`;
 		questionCategory = category;
 
@@ -139,7 +139,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	function beginQuiz() {
 		event.preventDefault();
 		let nameInput = document.querySelector('input');
-
+		categoryContainer = document.getElementById('category-container');
+		categoryContainer.classList.add('hide');
 		if (nameInput.value.trim() === '') {
 			alert('Please enter user name to begin');
 		} else {
@@ -151,9 +152,31 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
+	function displayScorePanel() {
+		const scorePanel = document.getElementById('score-panel');
+		scorePanel.innerHTML = " ";
+		scorePanel.classList.add('card');
+		
+		// Creating the new elements:
+		const scorePanelRow = document.createElement('div');
+		scorePanelRow.classList.add('row');
+		const scorePanelCol = document.createElement('div');
+		scorePanelCol.setAttribute('style', 'text-align:center;');
+		scorePanelCol.classList.add('col');
+		scorePanelRow.appendChild(scorePanelCol);
+		scorePanel.appendChild(scorePanelRow);
+
+		scorePanelCol.innerHTML= `
+		<h3>Score: ${scores}</h3>
+		<h3>Time: <span id="min">00</span>:<span id="sec">00</span></h3>
+		`
+	}
 	function displayQuestions() {
 		const userForm = document.getElementById('user');
-		userForm.innerHTML = '';
+		userForm.classList.add('hide');
+		const questionBox = document.getElementById('question-box');
+		questionBox.classList.add('show');
+		displayScorePanel();
 
 		let questionsByCat = questions.filter(function(e) {
 			return e.category === questionCategory;
@@ -164,7 +187,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		for (i = next; i < questionsByCat.length; i++) {
 			const questionContainer = document.getElementById('question-container');
 			questionContainer.innerHTML = '';
-			const questionContent = document.createElement('div');
+			const questionContent = document.createElement('h4');
+			questionContent.classList.add('question-heading');
 			questionContent.innerText = questionsByCat[i].question;
 			questionContainer.appendChild(questionContent);
 
@@ -176,7 +200,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			const answerContainer = document.getElementById('answer-container');
 			answerContainer.innerHTML = '';
 			answers.forEach((answer) => {
-				const answerContent = document.createElement('div');
+				const answerContent = document.createElement('button');
+				const buttonClasses= ['ui', 'orange', 'basic', 'button']
+				answerContent.classList.add(...buttonClasses);
 				// answerContent.id = answerId;
 				answerContent.setAttribute('data-isCorrect', answer.answer);
 

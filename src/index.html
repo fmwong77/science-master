@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <div class="container-fluid my-container">
+  <div class="container my-container">
     <div class="row align-items-center" id="navigationRow">
       <div class="col-4">
         <div>
@@ -23,12 +23,11 @@
         </div>
 
       </div>
-      <div class="col-4">
+      <div class="col-4" id= "score-panel">
         <p id="gameTitle">Welcome to <br>Science Master!</p>
       </div>
       <div class="col-4 d-flex flex-row-reverse">
         <div>
-          <span id="min">00</span>:<span id="sec">00</span>
           <img id="beakerIcon" src="./images/beaker.svg" alt="Beaker">
         </div>
       </div>
@@ -40,13 +39,26 @@
 
     </div>
     <!-- Questions Begin Here:-->
-    <div id="question-container" class="col-8">
-    </div>
-    <div id="answer-container" class="col-8">
+    <div class="row">
+      <div class="col-2">
 
+      </div>
+      <div class="col-8">
+        <div class="jumbotron hide" id= "question-box">
+          <div id="question-container">
+          </div>
+          <div id="answer-container" class="col-8">
     </div>
     <div id="next-button-container" class="col-8">
 
+          </div>
+          <div id="next-container" class="col-8">
+
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+      </div>
     </div>
     <div id="result-container" class="col-8">
 
