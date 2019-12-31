@@ -5,6 +5,7 @@ body {
 
 .my-container {
 	margin: auto;
+	text-align: center;
 }
 
 #beakerIcon {

@@ -213,7 +213,9 @@ window.addEventListener('DOMContentLoaded', () => {
 				}
 
 				answerContent.innerText = answer.text;
+				answerContent.addEventListener('click', answerInteraction)
 				answerContent.addEventListener('click', isAnswerCorrect);
+				// setTimeout(isAnswerCorrect, 800, answerContent);
 				answerContainer.appendChild(answerContent);
 				// answerId++;
 			});
@@ -224,7 +226,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	function isAnswerCorrect() {
 		console.log(this.getAttribute('data-isCorrect'));
-		answerInteraction();
+		// answerInteraction();
 
 		const nextDiv = document.createElement('div');
 		if (this.getAttribute('data-islastquestion') === 'true') {
