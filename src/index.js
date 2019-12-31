@@ -215,16 +215,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
 				answerContent.innerText = answer.text;
 
-
-
-
-
-
-
-
 				// answerContent.addEventListener('click', answerInteraction)
 				// setTimeout(isAnswerCorrect, 800);
-				answerContent.addEventListener('click', answerInteraction);
+				answerContent.addEventListener('click', isAnswerCorrect);
 				answerContainer.appendChild(answerContent);
 				// answerId++;
 			});
@@ -232,31 +225,40 @@ window.addEventListener('DOMContentLoaded', () => {
 			return;
 		}
 	}
-
+// See this function for event listener added to the next/submit buttons:
 	function isAnswerCorrect() {
-		console.log(this.getAttribute('data-isCorrect'));
+		// console.log(this.getAttribute('data-isCorrect'));
 		// answerInteraction();
-
+		console.log(this);
+		
+		
+		
+		let answer= this;
+		let correctness = answer.getAttribute('data-isCorrect');
+		console.log(correctness);
+		
+		
 		const nextDiv = document.createElement('div');
-		if (this.getAttribute('data-islastquestion') === 'true') {
+		if (answer === 'true') {
 			nextDiv.innerHTML = `<input type="button" class="btn btn-primary" value="Submit">`;
-			nextDiv.addEventListener('click', () =>
-				submit(this.getAttribute('data-isCorrect'))
-			);
+			nextDiv.addEventListener('click', () => answerInteraction(correctness));	
+			// submit(this.getAttribute('data-isCorrect'))
 		} else {
 			nextDiv.innerHTML = `<input type="button" class="btn btn-primary" value="Next">`;
-			nextDiv.addEventListener('click', () =>
-				showNext(this.getAttribute('data-isCorrect'))
-			);
+			// nextDiv.addEventListener('click', () =>
+			// 	showNext(this.getAttribute('data-isCorrect'))
+			// );
+			nextDiv.addEventListener('click', () => answerInteraction(correctness));
 		}
 
 		nextContainer.appendChild(nextDiv);
 	}
 
-	function answerInteraction() {
+	function answerInteraction(answer) {
 		const answerContainer = document.getElementById('answer-container');
 		const answers = answerContainer.childNodes;
-
+		const answerInput = answer
+		// console.log(truthiness)
 		for (let i = 0; i < answers.length; i++) {
 			// console.log(answers[i])
 			let truthiness = answers[i].getAttribute('data-iscorrect');
@@ -264,14 +266,13 @@ window.addEventListener('DOMContentLoaded', () => {
 			console.log(truthiness)
 
 			if (truthiness === "true") {
-				answers[i].classList.add('colorswitch')
+				answers[i].classList.add('correct')
 				
 			} else {
-				answers[i].classList.add('colorswitch2')
+				answers[i].classList.add('incorrect')
 			}
-			setTimeout(isAnswerCorrect, 800)
 		}
-
+		setTimeout(isAnswerCorrect, 800, answerInput)
 	}
 	function calculateScores(isCorrect) {
 		if (isCorrect === 'true') {

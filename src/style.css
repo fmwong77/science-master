@@ -63,6 +63,15 @@ body {
 .form-container {
 	margin-top: 40px;
 }
+
+.correct {
+	background-color: purple;
+}
+
+.incorrect {
+	background-color: blue;
+}
+
 /* Hiding and showing the timer and score */
 .hide {
 	display: none;
@@ -155,13 +164,6 @@ body {
   margin-left: -1px;
 }
 
-.colorswitch {
-	background-color: purple;
-}
-
-.colorswitch2 {
-	background-color: blue;
-}
 
 /* Animation CSS starts below:  */
 /* ----------------------------------------------
