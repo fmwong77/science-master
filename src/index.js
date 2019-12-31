@@ -3,11 +3,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	let username;
 	let categoryContainer;
 	let questions;
-	let questionId = 1;
 	let scores = 0;
 	let next = 0;
 	let questionCategory;
-	let nextContainer;
+	let nextButtonContainer;
 
 	function hide(elements) {
 		elements = elements.length ? elements : [elements];
@@ -26,12 +25,21 @@ window.addEventListener('DOMContentLoaded', () => {
 	hide(document.getElementById('pagination'));
 	api_url = 'http://127.0.0.1:3000/api/v1/';
 
-	fetch(`${api_url}questions`)
+	fetch(`${api_url}scores`)
 		.then((resp) => resp.json())
 		.then((data) => {
-			questions = data;
-			displayQuestionCategories(data);
+			console.log(data);
+
+			// questions = data;
+			// displayQuestionCategories(data);
 		});
+
+	// fetch(`${api_url}questions`)
+	// 	.then((resp) => resp.json())
+	// 	.then((data) => {
+	// 		questions = data;
+	// 		displayQuestionCategories(data);
+	// 	});
 
 	function displayQuestionCategories(categories) {
 		let categoryArr = [];
@@ -168,8 +176,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			questionContent.innerText = questionsByCat[i].question;
 			questionContainer.appendChild(questionContent);
 
-			nextContainer = document.getElementById('next-button-container');
-			nextContainer.innerHTML = '';
+			nextButtonContainer = document.getElementById('next-button-container');
+			nextButtonContainer.innerHTML = '';
 
 			const answers = questionsByCat[i].answers;
 			// let answerId = 1;
@@ -212,7 +220,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			);
 		}
 
-		nextContainer.appendChild(nextDiv);
+		nextButtonContainer.appendChild(nextDiv);
 	}
 
 	function calculateScores(isCorrect) {
@@ -268,6 +276,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			'next-button-container'
 		);
 		nextButtonContainer.innerHTML = '';
+
+		hide(document.getElementById('pagination'));
 
 		const resultContainer = document.getElementById('result-container');
 		resultContainer.innerHTML = `
