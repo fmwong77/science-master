@@ -211,11 +211,20 @@ window.addEventListener('DOMContentLoaded', () => {
 				} else {
 					answerContent.setAttribute('data-isLastQuestion', false);
 				}
+				
 
 				answerContent.innerText = answer.text;
-				answerContent.addEventListener('click', answerInteraction)
-				answerContent.addEventListener('click', isAnswerCorrect);
-				// setTimeout(isAnswerCorrect, 800, answerContent);
+
+
+
+
+
+
+
+
+				// answerContent.addEventListener('click', answerInteraction)
+				// setTimeout(isAnswerCorrect, 800);
+				answerContent.addEventListener('click', answerInteraction);
 				answerContainer.appendChild(answerContent);
 				// answerId++;
 			});
@@ -260,8 +269,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			} else {
 				answers[i].classList.add('colorswitch2')
 			}
-		
+			setTimeout(isAnswerCorrect, 800)
 		}
+
 	}
 	function calculateScores(isCorrect) {
 		if (isCorrect === 'true') {
