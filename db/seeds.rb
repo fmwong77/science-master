@@ -6,6 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Delete old data
+Answer.destroy_all
+Question.destroy_all
+
+Score.destroy_all
+User.destroy_all
+
 # Questions
 newtonQuestion1 = Question.create(question: "Which of the following best explains why your body leans to the side when taking a sharp turn in a car?", category: "Newton's Lab")
 newtonQuestion2 = Question.create(question: "Which law of motion say that for every action there is an equal and opposite reaction?", category: "Newton's Lab")
