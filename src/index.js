@@ -7,6 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	let next = 0;
 	let questionCategory;
 	let nextButtonContainer;
+	let scoreArray = new Array(10).fill(0);
 
 	function hide(elements) {
 		elements = elements.length ? elements : [elements];
@@ -22,7 +23,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
+	hide(document.getElementById('result-container'));
 	hide(document.getElementById('pagination'));
+	hide(document.getElementById('score-panel'));
 	api_url = 'http://127.0.0.1:3000/api/v1/';
 
 	fetch(`${api_url}questions`)
@@ -109,8 +112,12 @@ window.addEventListener('DOMContentLoaded', () => {
 		event.preventDefault();
 		let nameInput = document.querySelector('input');
 		username = nameInput.value;
-		//From this function, you can now access both the username and the quiz they selected:
-		beginQuiz();
+		if (username.trim() === '') {
+			JSalert('Oops', 'Please enter username to play', 'error');
+		} else {
+			//From this function, you can now access both the username and the quiz they selected:
+			beginQuiz();
+		}
 	}
 
 	var Clock = {
@@ -139,24 +146,50 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 	};
 
+	function JSalert(title, messageContent, icon) {
+		swal(title, messageContent, icon);
+	}
+
 	function beginQuiz() {
 		event.preventDefault();
 		let nameInput = document.querySelector('input');
+		categoryContainer = document.getElementById('category-container');
+		categoryContainer.classList.add('hide');
 
-		if (nameInput.value.trim() === '') {
-			alert('Please enter user name to begin');
-		} else {
-			// let username = nameInput.value.trim();
-			//From this function, you can now access both the username and the quiz they selected:
-			let count = 0;
-			displayQuestions(count);
-			Clock.start();
-		}
+		let count = 0;
+		hide(document.getElementById('title-panel'));
+		displayScorePanel();
+		displayQuestions(count);
+		Clock.start();
+	}
+
+	function displayScorePanel() {
+		const scorePanel = document.getElementById('score-panel');
+		show(scorePanel);
+		// scorePanel.innerHTML = ' ';
+		scorePanel.classList.add('card');
+
+		// Creating the new elements:
+		const scorePanelRow = document.createElement('div');
+		scorePanelRow.classList.add('row');
+		const scorePanelCol = document.createElement('div');
+		scorePanelCol.setAttribute('style', 'text-align:center;');
+		scorePanelCol.classList.add('col');
+		scorePanelRow.appendChild(scorePanelCol);
+		scorePanel.appendChild(scorePanelRow);
+
+		scorePanelCol.innerHTML = `
+		<h3 id="score">Score: ${scores}</h3>
+		<h3>Time: <span id="min">00</span>:<span id="sec">00</span></h3>
+		`;
 	}
 
 	function displayQuestions() {
-		const userForm = document.getElementById('user');
-		userForm.innerHTML = '';
+		hide(document.getElementById('user'));
+		show(document.getElementById('question-box'));
+		show(document.getElementById('question-box'));
+
+		// displayScorePanel();
 
 		let questionsByCat = questions.filter(function(e) {
 			return e.category === questionCategory;
@@ -167,7 +200,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		for (i = next; i < questionsByCat.length; i++) {
 			const questionContainer = document.getElementById('question-container');
 			questionContainer.innerHTML = '';
-			const questionContent = document.createElement('div');
+			const questionContent = document.createElement('h4');
+			questionContent.classList.add('question-heading');
 			questionContent.innerText = questionsByCat[i].question;
 			questionContainer.appendChild(questionContent);
 
@@ -175,12 +209,13 @@ window.addEventListener('DOMContentLoaded', () => {
 			nextButtonContainer.innerHTML = '';
 
 			const answers = questionsByCat[i].answers;
-			// let answerId = 1;
 			const answerContainer = document.getElementById('answer-container');
 			answerContainer.innerHTML = '';
 			answers.forEach((answer) => {
-				const answerContent = document.createElement('div');
-				// answerContent.id = answerId;
+				const answerContent = document.createElement('button');
+				// const buttonClasses = ['ui', 'orange', 'basic', 'button'];
+				answerContent.className = 'block';
+				// answerContent.classList.add(...buttonClasses);
 				answerContent.setAttribute('data-isCorrect', answer.answer);
 
 				if (i === questionsByCat.length - 1) {
@@ -190,19 +225,21 @@ window.addEventListener('DOMContentLoaded', () => {
 				}
 
 				answerContent.innerText = answer.text;
-				answerContent.addEventListener('click', isAnswerCorrect);
+				answerContent.addEventListener('click', displayNextOrSubmit);
 				answerContainer.appendChild(answerContent);
-				// answerId++;
+				const br = document.createElement('br');
+				answerContainer.appendChild(br);
 			});
 
 			return;
 		}
 	}
 
-	function isAnswerCorrect() {
-		console.log(this.getAttribute('data-isCorrect'));
+	function displayNextOrSubmit() {
+		calculateScores(this.getAttribute('data-isCorrect'), next, this);
 
 		const nextDiv = document.createElement('div');
+		nextDiv.innerHTML = '';
 		if (this.getAttribute('data-islastquestion') === 'true') {
 			nextDiv.innerHTML = `<input type="button" class="btn btn-primary" value="Submit">`;
 			nextDiv.addEventListener('click', () =>
@@ -216,25 +253,46 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 		nextButtonContainer.appendChild(nextDiv);
+		disableAllOtherAnswer();
 	}
 
-	function calculateScores(isCorrect) {
-		if (isCorrect === 'true') {
-			scores = scores + 10;
+	function disableAllOtherAnswer() {
+		const c = document.getElementById('answer-container').childNodes;
+		console.log(c);
+
+		for (let i = 0; i < c.length; i++) {
+			if (i % 2 === 0) {
+				c[i].disabled = true;
+			}
 		}
-		console.log(scores);
 	}
 
-	function showNext(isCorrect) {
-		calculateScores(isCorrect);
+	function calculateScores(isCorrect, count, ele) {
+		ele.classList.remove('block');
+		if (isCorrect === 'true') {
+			ele.classList.add('rightAnswer');
+			scoreArray[count] = 10;
+		} else {
+			ele.classList.add('wrongAnswer');
+			scoreArray[count] = 0;
+		}
+		const scoreCard = document.getElementById('score');
+		let scores = scoreArray.reduce(sumFunc);
+		scoreCard.innerText = `Score: ${scores}`;
+	}
+
+	function sumFunc(sum, a) {
+		return sum + a;
+	}
+
+	function showNext() {
 		next++;
 		pagination({ target: selectAll('circle')[next] });
 		displayQuestions();
 	}
 
-	function submit(isCorrect) {
+	function submit() {
 		Clock.stop();
-		calculateScores(isCorrect);
 
 		const minute = document.getElementById(min);
 		const second = document.getElementById(sec);
@@ -259,6 +317,10 @@ window.addEventListener('DOMContentLoaded', () => {
 			.then((response) => response.json())
 			.then((message) => console.log(message));
 
+		hide(document.getElementById('score-panel'));
+		show(document.getElementById('title-panel'));
+		hide(document.getElementById('question-box'));
+
 		showResult(totalTime);
 	}
 
@@ -274,19 +336,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		hide(document.getElementById('pagination'));
 
-		const resultContainer = document.getElementById('result-container');
-		resultContainer.innerHTML = `
-    <div class = "row justify-content-center">
-    <div class = "col-6">
-    <h3> Your scores is ${scores}!</h3>
-    <h3> You completed the trivia in ${totalTime}!</h3>
-    <input id="play-again" type="button" class="btn btn-primary" value="Let's Play Again!">
-    </div>  
-    </div> 
-		`;
+		JSalert(
+			'Good Job!',
+			`You completed the trivia in ${totalTime} and your scores is ${scores}!`,
+			'success'
+		);
 
-		const playAgain = document.getElementById('play-again');
-		playAgain.addEventListener('click', showHome);
+		fetchRanking();
 	}
 
 	function showHome() {
@@ -361,14 +417,44 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 	};
 
-	//automate the first one
-	pagination({ target: selectAll('circle')[0] });
-
-	function showRanking() {
+	function fetchRanking() {
 		fetch(`${api_url}scores`)
 			.then((resp) => resp.json())
 			.then((data) => {
-				console.log(data);
+				displayRanking(data);
 			});
 	}
+
+	function displayRanking(topScores) {
+		show(document.getElementById('result-container'));
+		const resultContainer = document.getElementById('result-container');
+		const table = document.getElementById('t01');
+
+		let count = 1;
+
+		for (const score in topScores) {
+			let tr = document.createElement('tr');
+			tr.innerHTML = `<tr>
+          <td>${count}</td>
+          <td>${topScores[score].user.username}</td>
+          <td>${topScores[score].score}</td>
+          <td>${topScores[score].time}</td>
+				</tr>`;
+			table.appendChild(tr);
+			count++;
+		}
+
+		const playAgain = document.createElement('button');
+		playAgain.innerText = "Let's Play Again";
+		playAgain.className = 'btn btn-primary';
+		// playAgain.classList.add('btn');
+
+		playAgain.addEventListener('click', showHome);
+		resultContainer.appendChild(playAgain);
+	}
+
+	//automate the first one
+	pagination({
+		target: selectAll('circle')[0]
+	});
 });
