@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 
 	hide(document.getElementById('result-container'));
-	hide(document.getElementById('pagination'));
+	// hide(document.getElementById('pagination'));
 	hide(document.getElementById('score-panel'));
 	api_url = 'http://127.0.0.1:3000/api/v1/';
 
@@ -158,6 +158,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		let count = 0;
 		hide(document.getElementById('title-panel'));
+		show(document.getElementById('score-panel'));
 		displayScorePanel();
 		displayQuestions(count);
 		Clock.start();
@@ -253,21 +254,28 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 		nextButtonContainer.appendChild(nextDiv);
-		disableAllOtherAnswer();
+		disableAllOtherAnswer(this);
 	}
 
-	function disableAllOtherAnswer() {
+	function disableAllOtherAnswer(ele) {
 		const c = document.getElementById('answer-container').childNodes;
 		console.log(c);
 
 		for (let i = 0; i < c.length; i++) {
 			if (i % 2 === 0) {
+				if (ele.getAttribute('data-isCorrect') === 'false') {
+					if (c[i].getAttribute('data-isCorrect') === 'true') {
+						c[i].classList.remove('block');
+						c[i].classList.add('rightAnswer');
+					}
+				}
 				c[i].disabled = true;
 			}
 		}
 	}
 
 	function calculateScores(isCorrect, count, ele) {
+		let img = document.getElementById('beakerIcon');
 		ele.classList.remove('block');
 		if (isCorrect === 'true') {
 			ele.classList.add('rightAnswer');
@@ -277,8 +285,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			scoreArray[count] = 0;
 		}
 		const scoreCard = document.getElementById('score');
-		let scores = scoreArray.reduce(sumFunc);
+		scores = scoreArray.reduce(sumFunc);
 		scoreCard.innerText = `Score: ${scores}`;
+		img.src = `./images/beaker${scores}.svg`;
 	}
 
 	function sumFunc(sum, a) {
@@ -291,12 +300,24 @@ window.addEventListener('DOMContentLoaded', () => {
 		displayQuestions();
 	}
 
+	function fetchRanking() {
+		fetch(`${api_url}scores`)
+			.then((resp) => resp.json())
+			.then((data) => {
+				displayRanking(data);
+			});
+	}
+
 	function submit() {
 		Clock.stop();
 
 		const minute = document.getElementById(min);
 		const second = document.getElementById(sec);
 		const totalTime = `${min.innerText}:${sec.innerText}`;
+
+		hide(document.getElementById('score-panel'));
+		show(document.getElementById('title-panel'));
+		hide(document.getElementById('question-box'));
 
 		let data = {
 			username: username,
@@ -315,11 +336,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		fetch(api_url + 'users/', configObject)
 			.then((response) => response.json())
-			.then((message) => console.log(message));
-
-		hide(document.getElementById('score-panel'));
-		show(document.getElementById('title-panel'));
-		hide(document.getElementById('question-box'));
+			.then((message) => fetchRanking());
 
 		showResult(totalTime);
 	}
@@ -342,7 +359,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			'success'
 		);
 
-		fetchRanking();
+		// fetchRanking();
 	}
 
 	function showHome() {
@@ -416,14 +433,6 @@ window.addEventListener('DOMContentLoaded', () => {
 			tl.timeScale(2);
 		}
 	};
-
-	function fetchRanking() {
-		fetch(`${api_url}scores`)
-			.then((resp) => resp.json())
-			.then((data) => {
-				displayRanking(data);
-			});
-	}
 
 	function displayRanking(topScores) {
 		show(document.getElementById('result-container'));
