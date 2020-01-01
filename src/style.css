@@ -5,6 +5,7 @@ body {
 
 .my-container {
 	margin: auto;
+	text-align: center;
 }
 
 #beakerIcon {
@@ -56,7 +57,6 @@ body {
 
 #create-user {
 	padding-bottom: 25px;
-	text-align: center;
 }
 
 .form-container {
@@ -74,9 +74,8 @@ body {
 /* Styling the questions jumbotron: */
 
 .question-heading {
-	text-align: center;
+	text-align: left;
 }
-
 
 /* Semantic UI */
 
@@ -84,39 +83,39 @@ body {
 
 .ui.basic.orange.buttons .button,
 .ui.basic.orange.button {
-  -webkit-box-shadow: 0px 0px 0px 1px #F2711C inset !important;
-          box-shadow: 0px 0px 0px 1px #F2711C inset !important;
-  color: #F2711C !important;
+	-webkit-box-shadow: 0px 0px 0px 1px #f2711c inset !important;
+	box-shadow: 0px 0px 0px 1px #f2711c inset !important;
+	color: #f2711c !important;
 }
 .ui.basic.orange.buttons .button:hover,
 .ui.basic.orange.button:hover {
-  background: transparent !important;
-  -webkit-box-shadow: 0px 0px 0px 1px #f26202 inset !important;
-          box-shadow: 0px 0px 0px 1px #f26202 inset !important;
-  color: #f26202 !important;
+	background: transparent !important;
+	-webkit-box-shadow: 0px 0px 0px 1px #f26202 inset !important;
+	box-shadow: 0px 0px 0px 1px #f26202 inset !important;
+	color: #f26202 !important;
 }
 .ui.basic.orange.buttons .button:focus,
 .ui.basic.orange.button:focus {
-  background: transparent !important;
-  -webkit-box-shadow: 0px 0px 0px 1px #e55b00 inset !important;
-          box-shadow: 0px 0px 0px 1px #e55b00 inset !important;
-  color: #f26202 !important;
+	background: transparent !important;
+	-webkit-box-shadow: 0px 0px 0px 1px #e55b00 inset !important;
+	box-shadow: 0px 0px 0px 1px #e55b00 inset !important;
+	color: #f26202 !important;
 }
 .ui.basic.orange.buttons .active.button,
 .ui.basic.orange.active.button {
-  background: transparent !important;
-  -webkit-box-shadow: 0px 0px 0px 1px #f56100 inset !important;
-          box-shadow: 0px 0px 0px 1px #f56100 inset !important;
-  color: #cf590c !important;
+	background: transparent !important;
+	-webkit-box-shadow: 0px 0px 0px 1px #f56100 inset !important;
+	box-shadow: 0px 0px 0px 1px #f56100 inset !important;
+	color: #cf590c !important;
 }
 .ui.basic.orange.buttons .button:active,
 .ui.basic.orange.button:active {
-  -webkit-box-shadow: 0px 0px 0px 1px #cf590c inset !important;
-          box-shadow: 0px 0px 0px 1px #cf590c inset !important;
-  color: #cf590c !important;
+	-webkit-box-shadow: 0px 0px 0px 1px #cf590c inset !important;
+	box-shadow: 0px 0px 0px 1px #cf590c inset !important;
+	color: #cf590c !important;
 }
 .ui.buttons:not(.vertical) > .basic.orange.button:not(:first-child) {
-  margin-left: -1px;
+	margin-left: -1px;
 }
 
 /* Animation CSS starts below:  */
@@ -250,9 +249,84 @@ svg {
 
 #circleGroup,
 #joinLine {
-	stroke: #fff;
+	stroke: #ffc600;
 }
+
 circle {
 	cursor: pointer;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+table {
+	width: 100%;
+}
+
+table,
+th,
+td {
+	border: 1px solid #eee;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 15px;
+	text-align: left;
+}
+
+table#t01 tr:nth-child(even) {
+	background-color: #eee;
+}
+
+table#t01 tr:nth-child(odd) {
+	background-color: #fff;
+}
+
+table#t01 th {
+	background-color: rgb(231, 211, 26);
+	color: white;
+}
+
+/* answer button style */
+.block {
+	display: block;
+	width: 100%;
+	border: none;
+	background-color: #4caf50;
+	color: white;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: left;
+}
+
+.block:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.rightAnswer {
+	display: block;
+	width: 100%;
+	color: black;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: left;
+	border-width: 2px;
+	background-color: #ddd;
+	border-color: green;
+}
+
+.wrongAnswer {
+	display: block;
+	width: 100%;
+	color: black;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: left;
+	border-width: 2px;
+	background-color: #ddd;
+	border-color: red;
 }
