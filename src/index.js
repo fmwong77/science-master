@@ -265,9 +265,18 @@ window.addEventListener('DOMContentLoaded', () => {
 			if (i % 2 === 0) {
 				if (ele.getAttribute('data-isCorrect') === 'false') {
 					if (c[i].getAttribute('data-isCorrect') === 'true') {
-						c[i].classList.remove('block');
-						c[i].classList.add('rightAnswer');
+						const buttonClasses = ['ui', 'green', 'basic', 'button'];
+						c[i].classList.add(...buttonClasses)
 					}
+					if (c[i].getAttribute('data-isCorrect') === 'false' && c[i] != ele) {
+						const buttonClasses = ['ui', 'grey', 'basic', 'button'];
+						c[i].classList.add(...buttonClasses)
+					}
+				}else{
+					if (c[i] != ele) {
+						c[i].classList.add('grey');
+					}
+
 				}
 				c[i].disabled = true;
 			}
