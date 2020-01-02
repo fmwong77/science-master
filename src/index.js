@@ -214,9 +214,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			answerContainer.innerHTML = '';
 			answers.forEach((answer) => {
 				const answerContent = document.createElement('button');
-				// const buttonClasses = ['ui', 'orange', 'basic', 'button'];
+				const buttonClasses = ['ui', 'orange', 'basic', 'button'];
 				answerContent.className = 'block';
-				// answerContent.classList.add(...buttonClasses);
+				answerContent.classList.add(...buttonClasses);
 				answerContent.setAttribute('data-isCorrect', answer.answer);
 
 				if (i === questionsByCat.length - 1) {
@@ -279,9 +279,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		ele.classList.remove('block');
 		if (isCorrect === 'true') {
 			ele.classList.add('rightAnswer');
+			const buttonClasses = ['ui', 'green', 'basic', 'button'];
+			ele.classList.add(...buttonClasses)
 			scoreArray[count] = 10;
 		} else {
 			ele.classList.add('wrongAnswer');
+			const buttonClasses = ['ui', 'red', 'basic', 'button'];
+			ele.classList.add(...buttonClasses)
 			scoreArray[count] = 0;
 		}
 		const scoreCard = document.getElementById('score');
