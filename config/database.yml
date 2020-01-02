@@ -11,7 +11,7 @@ default: &default
 
 development:
   <<: *default
-  database: development_heroku
+  database: development_heroku1
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
