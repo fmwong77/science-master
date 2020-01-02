@@ -189,8 +189,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		hide(document.getElementById('user'));
 		show(document.getElementById('question-box'));
 		show(document.getElementById('question-box'));
-
-		// displayScorePanel();
+		let questionRow = document.getElementById('question-row');
+		questionRow.classList.add('slide-in-left');
 
 		let questionsByCat = questions.filter(function(e) {
 			return e.category === questionCategory;
