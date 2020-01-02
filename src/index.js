@@ -214,9 +214,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			answerContainer.innerHTML = '';
 			answers.forEach((answer) => {
 				const answerContent = document.createElement('button');
-				// const buttonClasses = ['ui', 'orange', 'basic', 'button'];
+				const buttonClasses = ['ui', 'orange', 'basic', 'button'];
 				answerContent.className = 'block';
-				// answerContent.classList.add(...buttonClasses);
+				answerContent.classList.add(...buttonClasses);
 				answerContent.setAttribute('data-isCorrect', answer.answer);
 
 				if (i === questionsByCat.length - 1) {
@@ -265,9 +265,18 @@ window.addEventListener('DOMContentLoaded', () => {
 			if (i % 2 === 0) {
 				if (ele.getAttribute('data-isCorrect') === 'false') {
 					if (c[i].getAttribute('data-isCorrect') === 'true') {
-						c[i].classList.remove('block');
-						c[i].classList.add('rightAnswer');
+						const buttonClasses = ['ui', 'green', 'basic', 'button'];
+						c[i].classList.add(...buttonClasses)
 					}
+					if (c[i].getAttribute('data-isCorrect') === 'false' && c[i] != ele) {
+						const buttonClasses = ['ui', 'grey', 'basic', 'button'];
+						c[i].classList.add(...buttonClasses)
+					}
+				}else{
+					if (c[i] != ele) {
+						c[i].classList.add('grey');
+					}
+
 				}
 				c[i].disabled = true;
 			}
@@ -279,9 +288,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		ele.classList.remove('block');
 		if (isCorrect === 'true') {
 			ele.classList.add('rightAnswer');
+			const buttonClasses = ['ui', 'green', 'basic', 'button'];
+			ele.classList.add(...buttonClasses)
 			scoreArray[count] = 10;
 		} else {
 			ele.classList.add('wrongAnswer');
+			const buttonClasses = ['ui', 'red', 'basic', 'button'];
+			ele.classList.add(...buttonClasses)
 			scoreArray[count] = 0;
 		}
 		const scoreCard = document.getElementById('score');
