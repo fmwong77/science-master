@@ -259,6 +259,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	function disableAllOtherAnswer(ele) {
 		const c = document.getElementById('answer-container').childNodes;
+		const img = document.getElementById('beakerIcon');
 		console.log(c);
 
 		for (let i = 0; i < c.length; i++) {
@@ -267,10 +268,15 @@ window.addEventListener('DOMContentLoaded', () => {
 					if (c[i].getAttribute('data-isCorrect') === 'true') {
 						const buttonClasses = ['ui', 'green', 'basic', 'button'];
 						c[i].classList.add(...buttonClasses)
+						img.classList.toggle('jackInTheBox')
+
 					}
 					if (c[i].getAttribute('data-isCorrect') === 'false' && c[i] != ele) {
 						const buttonClasses = ['ui', 'grey', 'basic', 'button'];
 						c[i].classList.add(...buttonClasses)
+						img.classList.toggle('wobble-hor-bottom');
+
+						
 					}
 				}else{
 					if (c[i] != ele) {
@@ -291,16 +297,24 @@ window.addEventListener('DOMContentLoaded', () => {
 			const buttonClasses = ['ui', 'green', 'basic', 'button'];
 			ele.classList.add(...buttonClasses)
 			scoreArray[count] = 10;
+			// let beaker = document.getElementById('beakerIcon');
+			img.classList.toggle('jackInTheBox')
+
 		} else {
 			ele.classList.add('wrongAnswer');
+			let beaker = document.getElementById('beakerIcon');
 			const buttonClasses = ['ui', 'red', 'basic', 'button'];
 			ele.classList.add(...buttonClasses)
 			scoreArray[count] = 0;
+			img.classList.toggle('wobble-hor-bottom');
+
 		}
 		const scoreCard = document.getElementById('score');
 		scores = scoreArray.reduce(sumFunc);
 		scoreCard.innerText = `Score: ${scores}`;
 		img.src = `./images/beaker${scores}.svg`;
+	
+
 	}
 
 	function sumFunc(sum, a) {
