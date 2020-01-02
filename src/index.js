@@ -264,8 +264,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		for (let i = 0; i < c.length; i++) {
 			if (i % 2 === 0) {
-				if (ele.getAttribute('data-isCorrect') === 'false') {
-					if (c[i].getAttribute('data-isCorrect') === 'true') {
+				if (ele.getAttribute('data-isCorrect') === 0) {
+					if (c[i].getAttribute('data-isCorrect') === 1) {
 						const buttonClasses = ['ui', 'green', 'basic', 'button'];
 						c[i].classList.add(...buttonClasses)
 						img.classList.toggle('jackInTheBox')
@@ -292,7 +292,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	function calculateScores(isCorrect, count, ele) {
 		let img = document.getElementById('beakerIcon');
 		ele.classList.remove('block');
-		if (isCorrect === 'true') {
+		if (isCorrect === '1') {
 			ele.classList.add('rightAnswer');
 			const buttonClasses = ['ui', 'green', 'basic', 'button'];
 			ele.classList.add(...buttonClasses)
