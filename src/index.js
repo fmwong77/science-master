@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 		//Iterate through two arrays to get image and name card data
 		let uniqCat = removeDup(categoryArr);
-		const imgCat = ['chromosome', 'isaac-newton', 'power'];
+		const imgCat = ['isaac-newton', 'chromosome', 'power'];
 		const catDesc = [
 			'Test your knowledge of the human body!',
 			"Let's see how well you know your physics!",
