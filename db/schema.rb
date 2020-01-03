@@ -12,10 +12,13 @@
 
 ActiveRecord::Schema.define(version: 2019_12_20_200643) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "answers", force: :cascade do |t|
     t.string "text"
-    t.boolean "answer"
-    t.integer "question_id", null: false
+    t.string "answer"
+    t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_200643) do
   create_table "scores", force: :cascade do |t|
     t.integer "score"
     t.string "time"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_scores_on_user_id"
