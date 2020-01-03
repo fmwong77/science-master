@@ -1,0 +1,665 @@
+body {
+	/* box-sizing: border-box; */
+	background: #ffc600;
+}
+
+.my-container {
+	margin: auto;
+	text-align: center;
+}
+
+#beakerIcon {
+	margin: 25px;
+	height: 125px;
+	width: 125px;
+}
+
+#planetIcon {
+	margin: 25px;
+	height: 125px;
+	width: 125px;
+}
+#navigationRow {
+	height: 200px;
+}
+
+#gameTitle {
+	font-size: 35px;
+	text-align: center;
+}
+
+/* .category-card {
+	padding-top: 20px;
+	width: 12rem;
+	border-style: solid;
+	border-color: black;
+} */
+
+.img-card {
+	/* border-style: solid;
+	border-color: black; */
+	/* background-color: #ffc600; */
+}
+.card-style {
+	padding: 15px;
+}
+.selected-category {
+	border-style: solid;
+	border-color: blue;
+	border-width: 4px;
+}
+
+#selection-text {
+	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+#create-user {
+	padding-bottom: 25px;
+}
+
+.form-container {
+	margin-top: 40px;
+}
+/* Hiding and showing the timer and score */
+.hide {
+	display: none;
+}
+
+.show {
+	display: inline-block;
+}
+
+/* Styling the questions jumbotron: */
+
+.question-heading {
+	text-align: left;
+}
+
+/* Semantic UI */
+
+/* Question button styles: */
+
+.ui.basic.orange.buttons .button,
+.ui.basic.orange.button {
+	-webkit-box-shadow: 0px 0px 0px 1px #f2711c inset !important;
+	box-shadow: 0px 0px 0px 1px #f2711c inset !important;
+	color: #f2711c !important;
+}
+.ui.basic.orange.buttons .button:hover,
+.ui.basic.orange.button:hover {
+	background: transparent !important;
+	-webkit-box-shadow: 0px 0px 0px 1px #f26202 inset !important;
+	box-shadow: 0px 0px 0px 1px #f26202 inset !important;
+	color: #f26202 !important;
+}
+.ui.basic.orange.buttons .button:focus,
+.ui.basic.orange.button:focus {
+	background: transparent !important;
+	-webkit-box-shadow: 0px 0px 0px 1px #e55b00 inset !important;
+	box-shadow: 0px 0px 0px 1px #e55b00 inset !important;
+	color: #f26202 !important;
+}
+.ui.basic.orange.buttons .active.button,
+.ui.basic.orange.active.button {
+	background: transparent !important;
+	-webkit-box-shadow: 0px 0px 0px 1px #f56100 inset !important;
+	box-shadow: 0px 0px 0px 1px #f56100 inset !important;
+	color: #cf590c !important;
+}
+.ui.basic.orange.buttons .button:active,
+.ui.basic.orange.button:active {
+	-webkit-box-shadow: 0px 0px 0px 1px #cf590c inset !important;
+	box-shadow: 0px 0px 0px 1px #cf590c inset !important;
+	color: #cf590c !important;
+}
+.ui.buttons:not(.vertical) > .basic.orange.button:not(:first-child) {
+	margin-left: -1px;
+}
+ /* RED BUTTON STYLES */
+ .ui.basic.red.buttons .button,
+.ui.basic.red.button {
+  -webkit-box-shadow: 0px 0px 0px 1px #DB2828 inset !important;
+          box-shadow: 0px 0px 0px 1px #DB2828 inset !important;
+  color: #DB2828 !important;
+}
+.ui.basic.red.buttons .button:hover,
+.ui.basic.red.button:hover {
+  background: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 1px #d01919 inset !important;
+          box-shadow: 0px 0px 0px 1px #d01919 inset !important;
+  color: #d01919 !important;
+}
+.ui.basic.red.buttons .button:focus,
+.ui.basic.red.button:focus {
+  background: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 1px #ca1010 inset !important;
+          box-shadow: 0px 0px 0px 1px #ca1010 inset !important;
+  color: #d01919 !important;
+}
+.ui.basic.red.buttons .active.button,
+.ui.basic.red.active.button {
+  background: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 1px #d41515 inset !important;
+          box-shadow: 0px 0px 0px 1px #d41515 inset !important;
+  color: #b21e1e !important;
+}
+.ui.basic.red.buttons .button:active,
+.ui.basic.red.button:active {
+  -webkit-box-shadow: 0px 0px 0px 1px #b21e1e inset !important;
+          box-shadow: 0px 0px 0px 1px #b21e1e inset !important;
+  color: #b21e1e !important;
+}
+.ui.buttons:not(.vertical) > .basic.red.button:not(:first-child) {
+  margin-left: -1px;
+}
+
+.ui.basic.green.buttons .button,
+.ui.basic.green.button {
+  -webkit-box-shadow: 0px 0px 0px 1px #21BA45 inset !important;
+          box-shadow: 0px 0px 0px 1px #21BA45 inset !important;
+  color: #21BA45 !important;
+}
+.ui.basic.green.buttons .button:hover,
+.ui.basic.green.button:hover {
+  background: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 1px #16ab39 inset !important;
+          box-shadow: 0px 0px 0px 1px #16ab39 inset !important;
+  color: #16ab39 !important;
+}
+.ui.basic.green.buttons .button:focus,
+.ui.basic.green.button:focus {
+  background: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 1px #0ea432 inset !important;
+          box-shadow: 0px 0px 0px 1px #0ea432 inset !important;
+  color: #16ab39 !important;
+}
+.ui.basic.green.buttons .active.button,
+.ui.basic.green.active.button {
+  background: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 1px #13ae38 inset !important;
+          box-shadow: 0px 0px 0px 1px #13ae38 inset !important;
+  color: #198f35 !important;
+}
+.ui.basic.green.buttons .button:active,
+.ui.basic.green.button:active {
+  -webkit-box-shadow: 0px 0px 0px 1px #198f35 inset !important;
+          box-shadow: 0px 0px 0px 1px #198f35 inset !important;
+  color: #198f35 !important;
+}
+.ui.buttons:not(.vertical) > .basic.green.button:not(:first-child) {
+  margin-left: -1px;
+}
+
+/*GREY */
+.ui.basic.grey.buttons .button,
+.ui.basic.grey.button {
+  -webkit-box-shadow: 0px 0px 0px 1px #767676 inset !important;
+          box-shadow: 0px 0px 0px 1px #767676 inset !important;
+  color: #767676 !important;
+}
+.ui.basic.grey.buttons .button:hover,
+.ui.basic.grey.button:hover {
+  background: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 1px #838383 inset !important;
+          box-shadow: 0px 0px 0px 1px #838383 inset !important;
+  color: #838383 !important;
+}
+.ui.basic.grey.buttons .button:focus,
+.ui.basic.grey.button:focus {
+  background: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 1px #8a8a8a inset !important;
+          box-shadow: 0px 0px 0px 1px #8a8a8a inset !important;
+  color: #838383 !important;
+}
+.ui.basic.grey.buttons .active.button,
+.ui.basic.grey.active.button {
+  background: transparent !important;
+  -webkit-box-shadow: 0px 0px 0px 1px #696969 inset !important;
+          box-shadow: 0px 0px 0px 1px #696969 inset !important;
+  color: #909090 !important;
+}
+.ui.basic.grey.buttons .button:active,
+.ui.basic.grey.button:active {
+  -webkit-box-shadow: 0px 0px 0px 1px #909090 inset !important;
+          box-shadow: 0px 0px 0px 1px #909090 inset !important;
+  color: #909090 !important;
+}
+.ui.buttons:not(.vertical) > .basic.grey.button:not(:first-child) {
+  margin-left: -1px;
+}
+
+
+/* Animation CSS starts below:  */
+/* ----------------------------------------------
+ * Generated by Animista on 2019-12-23 10:45:18
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation fade-in-top
+ * ----------------------------------------
+ */
+.fade-in-top {
+	-webkit-animation: fade-in-top 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+	animation: fade-in-top 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@-webkit-keyframes fade-in-top {
+	0% {
+		-webkit-transform: translateY(-50px);
+		transform: translateY(-50px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@keyframes fade-in-top {
+	0% {
+		-webkit-transform: translateY(-50px);
+		transform: translateY(-50px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+/* Animation of the category select on front page:  */
+.shadow-drop-2-center {
+	-webkit-animation: shadow-drop-2-center 1s
+		cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+	animation: shadow-drop-2-center 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2019-12-24 10:39:38
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation shadow-drop-2-center
+ * ----------------------------------------
+ */
+@-webkit-keyframes shadow-drop-2-center {
+	0% {
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+		-webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+	100% {
+		-webkit-transform: translateZ(2000px);
+		transform: translateZ(20000px);
+		-webkit-box-shadow: 10px 10px 5px 0px rgba(13, 95, 219, 1);
+		box-shadow: 10px 10px 5px 0px rgba(13, 95, 219, 1);
+	}
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2019-12-29 10:4:7
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation slide-in-left
+ * ----------------------------------------
+ */
+
+/* This is for the user form creation slide in */
+.slide-in-left {
+	-webkit-animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+		both;
+	animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes slide-in-left {
+	0% {
+		-webkit-transform: translateX(-1000px);
+		transform: translateX(-1000px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateX(0);
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+@keyframes slide-in-left {
+	0% {
+		-webkit-transform: translateX(-1000px);
+		transform: translateX(-1000px);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: translateX(0);
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2020-1-2 12:17:14
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation wobble-hor-bottom
+ * ----------------------------------------
+ */
+
+ /* The animation for the beaker */
+ @-webkit-keyframes wobble-hor-bottom {
+	0%,
+	100% {
+	  -webkit-transform: translateX(0%);
+			  transform: translateX(0%);
+	  -webkit-transform-origin: 50% 50%;
+			  transform-origin: 50% 50%;
+	}
+	15% {
+	  -webkit-transform: translateX(-30px) rotate(-6deg);
+			  transform: translateX(-30px) rotate(-6deg);
+	}
+	30% {
+	  -webkit-transform: translateX(15px) rotate(6deg);
+			  transform: translateX(15px) rotate(6deg);
+	}
+	45% {
+	  -webkit-transform: translateX(-15px) rotate(-3.6deg);
+			  transform: translateX(-15px) rotate(-3.6deg);
+	}
+	60% {
+	  -webkit-transform: translateX(9px) rotate(2.4deg);
+			  transform: translateX(9px) rotate(2.4deg);
+	}
+	75% {
+	  -webkit-transform: translateX(-6px) rotate(-1.2deg);
+			  transform: translateX(-6px) rotate(-1.2deg);
+	}
+  }
+  @keyframes wobble-hor-bottom {
+	0%,
+	100% {
+	  -webkit-transform: translateX(0%);
+			  transform: translateX(0%);
+	  -webkit-transform-origin: 50% 50%;
+			  transform-origin: 50% 50%;
+	}
+	15% {
+	  -webkit-transform: translateX(-30px) rotate(-6deg);
+			  transform: translateX(-30px) rotate(-6deg);
+	}
+	30% {
+	  -webkit-transform: translateX(15px) rotate(6deg);
+			  transform: translateX(15px) rotate(6deg);
+	}
+	45% {
+	  -webkit-transform: translateX(-15px) rotate(-3.6deg);
+			  transform: translateX(-15px) rotate(-3.6deg);
+	}
+	60% {
+	  -webkit-transform: translateX(9px) rotate(2.4deg);
+			  transform: translateX(9px) rotate(2.4deg);
+	}
+	75% {
+	  -webkit-transform: translateX(-6px) rotate(-1.2deg);
+			  transform: translateX(-6px) rotate(-1.2deg);
+	}
+  }
+  
+
+.wobble-hor-bottom {
+	-webkit-animation: wobble-hor-bottom 0.8s both;
+	        animation: wobble-hor-bottom 0.8s both;
+}
+
+/* JackIn The box for the beaker */
+
+@-webkit-keyframes jackInTheBox {
+	from {
+	  opacity: 0;
+	  -webkit-transform: scale(0.1) rotate(30deg);
+	  transform: scale(0.1) rotate(30deg);
+	  -webkit-transform-origin: center bottom;
+	  transform-origin: center bottom;
+	}
+  
+	50% {
+	  -webkit-transform: rotate(-10deg);
+	  transform: rotate(-10deg);
+	}
+  
+	70% {
+	  -webkit-transform: rotate(3deg);
+	  transform: rotate(3deg);
+	}
+  
+	to {
+	  opacity: 1;
+	  -webkit-transform: scale(1);
+	  transform: scale(1);
+	}
+  }
+  
+  @keyframes jackInTheBox {
+	from {
+	  opacity: 0;
+	  -webkit-transform: scale(0.1) rotate(30deg);
+	  transform: scale(0.1) rotate(30deg);
+	  -webkit-transform-origin: center bottom;
+	  transform-origin: center bottom;
+	}
+  
+	50% {
+	  -webkit-transform: rotate(-10deg);
+	  transform: rotate(-10deg);
+	}
+  
+	70% {
+	  -webkit-transform: rotate(3deg);
+	  transform: rotate(3deg);
+	}
+  
+	to {
+	  opacity: 1;
+	  -webkit-transform: scale(1);
+	  transform: scale(1);
+	}
+  }
+  
+  .jackInTheBox {
+	-webkit-animation-name: jackInTheBox;
+	animation-name: jackInTheBox;
+  }
+  
+
+
+svg {
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+	max-width: 1000px;
+}
+
+#circleGroup,
+#joinLine {
+	stroke: #ffc600;
+}
+
+circle {
+	cursor: pointer;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+table {
+	width: 100%;
+}
+
+table,
+th,
+td {
+	border: 1px solid #eee;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 15px;
+	text-align: left;
+}
+
+table#t01 tr:nth-child(even) {
+	background-color: #eee;
+}
+
+table#t01 tr:nth-child(odd) {
+	background-color: #fff;
+}
+
+table#t01 th {
+	background-color: rgb(231, 211, 26);
+	color: white;
+}
+
+/* answer button style */
+/* .block {
+	display: block;
+	width: 100%;
+	border: none;
+	background-color: #4caf50;
+	color: white;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: left;
+} */
+
+.block {
+	cursor: pointer;
+	display: inline-block;
+	min-height: 1em;
+	outline: none;
+	border: none;
+	vertical-align: baseline;
+	background: #E0E1E2 none;
+	color: rgba(0, 0, 0, 0.6);
+	font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	margin: 0.50em 0.50em 0.50em 0.50em;
+	padding: 0.78571429em 2em 0.78571429em;
+	text-transform: none;
+	text-shadow: none;
+	font-weight: bold;
+	line-height: 1em;
+	font-style: normal;
+	text-align: left;
+	text-decoration: none;
+	width: 100%;
+	border-radius: 0.28571429rem;
+	-webkit-box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+			box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+		-ms-user-select: none;
+			user-select: none;
+	-webkit-transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+	transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+	transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+	transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+	will-change: '';
+	-webkit-tap-highlight-color: transparent;
+}
+
+.block:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.rightAnswer {
+	cursor: pointer;
+	display: inline-block;
+	min-height: 1em;
+	outline: none;
+	border: none;
+	vertical-align: baseline;
+	background: #E0E1E2 none;
+	color: rgba(0, 0, 0, 0.6);
+	font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	margin: 0.50em 0.50em 0.50em 0.50em;
+	padding: 0.78571429em 2em 0.78571429em;
+	text-transform: none;
+	text-shadow: none;
+	font-weight: bold;
+	line-height: 1em;
+	font-style: normal;
+	text-align: left;
+	text-decoration: none;
+	width: 100%;
+	border-radius: 0.28571429rem;
+	-webkit-box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+			box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+		-ms-user-select: none;
+			user-select: none;
+	-webkit-transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+	transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+	transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+	transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+	will-change: '';
+	-webkit-tap-highlight-color: transparent;
+}
+
+.wrongAnswer {
+	width: 100%;
+	cursor: pointer;
+  display: inline-block;
+  min-height: 1em;
+  outline: none;
+  border: none;
+  vertical-align: baseline;
+  background: #E0E1E2 none;
+  color: rgba(0, 0, 0, 0.6);
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  /* margin: 0em 0.25em 0em 0em; */
+  margin: 0.50em 0.50em 0.50em 0.50em;
+  padding: 0.78571429em 1.5em 0.78571429em;
+  text-transform: none;
+  text-shadow: none;
+  font-weight: bold;
+  line-height: 1em;
+  font-style: normal;
+  text-align: left;
+  text-decoration: none;
+  border-radius: 0.28571429rem;
+  -webkit-box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+          box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+  will-change: '';
+  -webkit-tap-highlight-color: transparent;
+}
