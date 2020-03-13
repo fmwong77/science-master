@@ -263,26 +263,25 @@ window.addEventListener('DOMContentLoaded', () => {
 		console.log(c);
 
 		for (let i = 0; i < c.length; i++) {
+			console.log(c[i].getAttribute('data-isCorrect'));
 			if (i % 2 === 0) {
 				if (ele.getAttribute('data-isCorrect') === 0) {
+					console.log(ele.getAttribute('data-isCorrect'));
+
 					if (c[i].getAttribute('data-isCorrect') === 1) {
 						const buttonClasses = ['ui', 'green', 'basic', 'button'];
-						c[i].classList.add(...buttonClasses)
-						img.classList.toggle('jackInTheBox')
-
+						c[i].classList.add(...buttonClasses);
+						img.classList.toggle('jackInTheBox');
 					}
 					if (c[i].getAttribute('data-isCorrect') === 'false' && c[i] != ele) {
 						const buttonClasses = ['ui', 'grey', 'basic', 'button'];
-						c[i].classList.add(...buttonClasses)
+						c[i].classList.add(...buttonClasses);
 						img.classList.toggle('wobble-hor-bottom');
-
-						
 					}
-				}else{
+				} else {
 					if (c[i] != ele) {
 						c[i].classList.add('grey');
 					}
-
 				}
 				c[i].disabled = true;
 			}
@@ -295,26 +294,22 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (isCorrect === '1') {
 			ele.classList.add('rightAnswer');
 			const buttonClasses = ['ui', 'green', 'basic', 'button'];
-			ele.classList.add(...buttonClasses)
+			ele.classList.add(...buttonClasses);
 			scoreArray[count] = 10;
 			// let beaker = document.getElementById('beakerIcon');
-			img.classList.toggle('jackInTheBox')
-
+			img.classList.toggle('jackInTheBox');
 		} else {
 			ele.classList.add('wrongAnswer');
 			let beaker = document.getElementById('beakerIcon');
 			const buttonClasses = ['ui', 'red', 'basic', 'button'];
-			ele.classList.add(...buttonClasses)
+			ele.classList.add(...buttonClasses);
 			scoreArray[count] = 0;
 			img.classList.toggle('wobble-hor-bottom');
-
 		}
 		const scoreCard = document.getElementById('score');
 		scores = scoreArray.reduce(sumFunc);
 		scoreCard.innerText = `Score: ${scores}`;
 		img.src = `./images/beaker${scores}.svg`;
-	
-
 	}
 
 	function sumFunc(sum, a) {
